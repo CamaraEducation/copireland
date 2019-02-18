@@ -68,4 +68,18 @@ wp_reset_postdata();
 list_posts_by_term('activity','pathways',3);
 ?>
 
+<?php
+
+function list_terms($terms, $count = -1 ) {
+$tax_terms = get_terms( $terms, 'orderby=name');
+foreach ( $tax_terms as $term ) {
+echo '<h2>' . $term->name . '</h2> <ul>';
+}
+}
+
+list_terms('pathways',3);
+
+?>
+
+
 <?php get_footer();?>
