@@ -15,13 +15,15 @@
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <?php
-$tax_terms = get_terms( 'pathways', 'orderby=name');
+$tax_terms = get_terms( 'pathways', 'orderby=id');
 foreach ( $tax_terms as $term ) {
 	?>
-	<a href="" class="btn btn-primary btn-sm" role="button"> <?php echo $term->name; ?> </a>
+	<a href="" class="btn btn-link btn-sm" role="button"> <?php echo $term->name; ?> </a>
 <?php
 }
 ?>
+
+
 
 	</nav><!-- End PATH WYA NAGIVATION -->
 
