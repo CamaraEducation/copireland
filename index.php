@@ -14,10 +14,15 @@
 
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<?php
+$tax_terms = get_terms( 'pathways', 'orderby=name');
+foreach ( $tax_terms as $term ) {
+	?>
+	<a href="" class="btn btn-primary btn-sm" role="button"> <?php echo $term->name; ?> </a>
+<?php
+}
+?>
 
-<a href="" class="btn btn-primary btn-sm" role="button"> STEAM </a>
-<a href="" class="btn btn-link btn-sm" role="botton"> Digital Creativity </a>
-<a href="" class="btn btn-link btn-sm" role="botton"> Emerging Technologies  </a>
 	</nav><!-- End PATH WYA NAGIVATION -->
 
 	<span class="pathway-title"> STEAM </span>
@@ -69,7 +74,7 @@ list_posts_by_term('activity','pathways',3);
 ?>
 
 <?php
-
+/*
 function list_terms($terms, $count = -1 ) {
 $tax_terms = get_terms( $terms, 'orderby=name');
 foreach ( $tax_terms as $term ) {
@@ -78,7 +83,7 @@ echo '<h2>' . $term->name . '</h2> <ul>';
 }
 
 list_terms('pathways',3);
-
+*/
 ?>
 
 
