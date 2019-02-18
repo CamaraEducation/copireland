@@ -24,6 +24,7 @@
 	<hr>
 
 <?php
+/**
 echo "testingas";
 
 $args = array( 'post_type' => 'activity', 'posts_per_page' => 10 );
@@ -34,7 +35,7 @@ while ( $loop->have_posts() ) : $loop->the_post();
   the_content();
   echo '</div>';
 endwhile;
-
+*/
 ?>
 
 <?php
@@ -64,7 +65,7 @@ echo '</ul>';
 wp_reset_postdata();
 }
 
-list_posts_by_term('activity','pathway',3);
+list_posts_by_term('activity','pathways',3);
 ?>
 
 <?php get_footer();?>
