@@ -6,10 +6,12 @@
 			<span><img src=	"<?php echo get_template_directory_uri();  ?>/images/techspacelogo.png" class="img-responsive" width="125" height="125" alt="COP"></span>
 		</div>
 		<div class="col-xs-6 col-centered" style="padding-left: 12px;">
+
 			<p class="profile-name"><?php um_fetch_user( get_current_user_id() );
 				echo um_user('display_name'); // returns the display name of logged-in user
 				?></p>
 			<p class="work-title"><?php global $current_user; echo array_shift($current_user->roles); ?> @ Camara</p>
+
 		</div>
 	</section>
 	
