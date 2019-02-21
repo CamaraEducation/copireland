@@ -47,15 +47,34 @@
 				</li>
 			</ul>
 			<img src="<?php echo get_template_directory_uri();  ?>/images/start.png" class="img-responsive"  alt="COP">
+			  <div>
+			  	
+			  	
+				<?php
+				global $current_user;
+				get_currentuserinfo();
+
+				echo get_avatar($current_user->ID, 64);
+				?>
+				<?php 
+				function get_current_user_role() {
+					global $wp_roles;
+					$current_user = wp_get_current_user();
+					$roles = $current_user->roles;
+					return $roles? $roles : null; // returns roles if any found, else returns null
+					}
+				?>
+			  </div>
+
+			  <div class="dropdown">
+    			<button class="dropbtn">
+      			<i class="fa fa-caret-down"></i>
+    			</button>
+    				<div class="dropdown-content">
+      					<a href="#">Account</a>
+      					<a href="<?php echo wp_logout_url(); ?>">Logout</a>
+    				</div>
+  				</div> 
 		</div>
 	</nav>
-
-
-	
-	
-
-
-
-
-
 	<?php //wp_nav_menu(array('theme_location'=>'primary'));?>
