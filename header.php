@@ -13,10 +13,6 @@
 		<div class="container"> 
 			
 
-
-
-
-
 <!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand">
@@ -49,13 +45,48 @@
 			<img src="<?php echo get_template_directory_uri();  ?>/images/start.png" class="img-responsive"  alt="COP">
 			  <div>
 			  	
-			  	
-				<?php
-				global $current_user;
-				get_currentuserinfo();
 
-				echo get_avatar($current_user->ID, 64);
-				?>
+<?php
+
+$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+$numSegments = count($segments); 
+global $currentPathway;
+$currentPathway= $segments[$numSegments - 1];
+
+echo 'Current Segment: ' , $currentPathway;
+
+if ( is_user_logged_in() ) {
+   //echo 'Welcome, registered user!';
+
+//get user Pathway
+	//$currentPathway ="steam";
+global $current_user;
+get_currentuserinfo();
+//echo get_avatar($current_user->ID, 64);
+?>
+<?php echo get_avatar($current_user->ID, 64); ?>
+
+  <span class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Action
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Acount</a>
+    <a class="dropdown-item" href="<?php echo wp_logout_url(); ?>">Logout</a>
+  </div>
+</span>
+
+<?php
+
+} else {
+    //echo 'Welcome, visitor!';
+    ?>
+    
+    <button type="button" class="btn btn-outline-primary"><a href=""> Account Login </a> </button>
+<?php
+}
+?>
+			
 				<?php 
 				function get_current_user_role() {
 					global $wp_roles;
@@ -66,15 +97,7 @@
 				?>
 			  </div>
 
-			  <div class="dropdown">
-    			<button class="dropbtn">
-      			<i class="fa fa-caret-down"></i>
-    			</button>
-    				<div class="dropdown-content">
-      					<a href="#">Account</a>
-      					<a href="<?php echo wp_logout_url(); ?>">Logout</a>
-    				</div>
-  				</div> 
+			  
 		</div>
 	</nav>
 	<?php //wp_nav_menu(array('theme_location'=>'primary'));?>

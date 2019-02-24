@@ -2,8 +2,17 @@
 
 
 	<section class="hero">
+
+		<?php
+if ( is_user_logged_in() ) {
+   
+
+?>
+
 		<div class="col-xs-6 col-centered">
-			<span><img src=	"<?php echo get_template_directory_uri();  ?>/images/techspacelogo.png" class="img-responsive" width="125" height="125" alt="COP"></span>
+			<span>
+<?php echo get_avatar($current_user->ID, 64); ?>
+</span>
 		</div>
 		<div class="col-xs-6 col-centered" style="padding-left: 12px;">
 
@@ -13,79 +22,73 @@
 			<p class="work-title"><?php global $current_user; echo array_shift($current_user->roles); ?> @ Camara</p>
 
 		</div>
+		<?php
+		} else {
+    echo 'Welcome, visitor!';
+}
+?>
 	</section>
 	
 
+
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+			<!-- Tabs -->
+	<div class="container">
+		<div class="row">
+			<div class="steamtabbednav">
+				<div class="tabbednavlinks">
+					
+			
 <?php
 $tax_terms = get_terms( 'pathways', 'orderby=id');
+//var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
-	?>
-	<a href="" class="btn btn-link btn-sm" role="button"> <?php echo $term->name; ?> </a>
+
+?>
+	
+	<a href=" <?php echo $term->slug; ?>" class="tabbednavlink" role="button" "<?php echo $currentPathway;?>"> <?php echo $term->name; ?> </a>
 <?php
 }
 ?>
+	</div>			
+			</div>
+		</div>
+	</div>
 	</nav><!-- End PATH WYA NAGIVATION -->
 
-	<span class="pathway-title"> STEAM </span>
-	<hr>
+<section>
+		<div class="container">
+			<h2 class="btitle">STEAM Starter Kit</h2>
+			<hr>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="row mr-2">
+						<div class="col-md-12 box1 mb-3">
 
-<?php
-/**
-echo "testingas";
+			<img src="<?php echo get_template_directory_uri();  ?>/images/steam.png" class="img-responsive"  alt="COP">
+Introduction to STEAM Diital Youth Work
+						</div>
 
-$args = array( 'post_type' => 'activity', 'posts_per_page' => 10 );
-$loop = new WP_Query( $args );
-while ( $loop->have_posts() ) : $loop->the_post();
-  the_title();
-  echo '<div class="entry-content">';
-  the_content();
-  echo '</div>';
-endwhile;
-*/
-?>
+						<div class="col box2 mr-2">
+							RESOURCE <br>
 
-<?php
-/**
-* Get posts and group by taxonomy terms.
-* @param string $posts Post type to get.
-* @param string $terms Taxonomy to group by.
-* @param integer $count How many post to show per taxonomy term.
-*/
+			<img src="<?php echo get_template_directory_uri();  ?>/images/resource.png" class="img-responsive"  alt="COP" >
+Logic Models
+						</div>
+						<div class="col box3">
+							Activity <br>
+			<img src="<?php echo get_template_directory_uri();  ?>/images/activity.png" class="img-responsive"  alt="COP">
+Start with low-tech activities 
 
-function list_posts_by_term( $posts, $terms, $count = -1 ) {
-$tax_terms = get_terms( $terms, 'orderby=name');
-foreach ( $tax_terms as $term ) {
-echo '<h2>' . $term->name . '</h2> <ul>';
+						</div>
+					</div>
+				</div>
 
-    $args = array(
-    'posts_per_page' => $count,
-     $terms => $term->slug,
-    'post_type' => $posts,
-     );
-    $tax_terms_posts = get_posts( $args );
-    foreach ( $tax_terms_posts as $post ) {
-        echo '<li><a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a></li>';
-    }
-echo '</ul>';
-}
-wp_reset_postdata();
-}
-
-list_posts_by_term('activity','pathways',3);
-?>
-
-<?php
-// global $current_user;
-// get_currentuserinfo();
-
-// echo get_avatar($current_user->ID, 64);
-// ?>
-<?php //um_fetch_user( get_current_user_id() );
-// echo um_user('display_name'); // returns the display name of logged-in user
-?>
-
+				<div class="col-md-4 box4">
 <?php
 echo "<br>";
 // Get all users with role Project Officers.
@@ -121,6 +124,8 @@ $users_count_ccs = (int) $user_query_ccs->get_total();
 echo $users_count_ccs .'   Community Contributors';
 echo "<br>";
 echo "<br>";
+
+
 //======================================================
 /**
 *um_community-contributors, um_cluster-coordinators, um_digital-youth-work-experts, C
@@ -150,4 +155,116 @@ elseif($cash >=21 && $cash <=25) {
 // endif
 
 ?>
+
+				</div>
+
+			</div>
+
+
+			<div class="row">
+				<p class="textdiv1">Have you trained in the NYCI STEAM in Youth Work Maker Project? <a href="" class="textdiv11">Access further resource here ></a></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Second Div -->
+	<section>
+					<hs2 class="btitle">Steam Activities</hs2>
+			<hr>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="row mr-2">
+						
+<?php
+$args = array(
+  'numberposts' => 1,
+  'post_type'   => 'pactivity'
+);
+ 
+$lastposts = get_posts( $args );
+//var_dump($lastposts);
+
+if ( $lastposts ) {
+    foreach ( $lastposts as $post ) :
+        //setup_postdata( $post ); 
+$level = get_post_meta($post->ID, 'level', true);
+        ?>
+        <h2><a href="<?php the_permalink(); ?>"><?php echo $level; ?></a></h2>
+        <?php //the_content(); ?>
+    <?php
+    endforeach; 
+    wp_reset_postdata();
+}
+
+?>
+						<div class="col box5 mr-2">
+<?php //echo $currentPathway;?>
+
+						</div>
+						<div class="col box5">
+2
+						</div>
+					</div>
+						<div class="row mr-2">
+						
+
+						<div class="col box5 mr-2">
+1
+						</div>
+						<div class="col box5">
+2
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 box51">
+<span class="border border-primary"> 
+<img src="<?php echo get_template_directory_uri();  ?>/images/communityContri.png" class="img-responsive" with="10px"  alt="COP">
+</span>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+<!-- Third Div -->
+	<section>
+			<h22 class="btitle">Advanced Program Plans</h22>
+			<hr>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="row mr-2">
+						
+
+						<div class="col-sm-6 box6">
+
+						</div>
+						<div class="col-sm-6 box6a">
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 box61">
+					
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- End of Third Div -->
+<hr>
+
+
+
+
+
+
 <?php get_footer();?>
