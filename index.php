@@ -42,7 +42,7 @@ if ( is_user_logged_in() ) {
 					
 			
 <?php
-$tax_terms = get_terms( 'pathways', 'orderby=id');
+$tax_terms = get_terms( 'activity_pathways', 'orderby=id');
 //var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
 
@@ -180,7 +180,7 @@ elseif($cash >=21 && $cash <=25) {
 <?php
 $args = array(
   'numberposts' => 1001,
-  'post_type'   => 'pactivity'
+  'post_type'   => 'activity'
 );
  
 $lastposts = get_posts( $args );
