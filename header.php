@@ -53,7 +53,7 @@ $numSegments = count($segments);
 global $currentPathway;
 $currentPathway= $segments[$numSegments - 1];
 
-echo 'Current Segment: ' , $currentPathway;
+//echo 'Current Segment: ' , $currentPathway;
 
 if ( is_user_logged_in() ) {
    //echo 'Welcome, registered user!';
