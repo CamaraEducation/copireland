@@ -79,7 +79,7 @@ get_currentuserinfo();
 <?php
 
 } else {
-    //echo 'Welcome, visitor!';
+    echo 'Welcome, visitor!';
     ?>
     
     <button type="button" class="btn btn-outline-primary"><a href=""> Account Login </a> </button>

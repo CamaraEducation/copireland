@@ -29,8 +29,6 @@ if ( is_user_logged_in() ) {
 ?>
 	</section>
 	
-
-
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
