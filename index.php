@@ -177,7 +177,7 @@ elseif($cash >=21 && $cash <=25) {
 						
 <?php
 $args = array(
-  'numberposts' => 1001,
+  'numberposts' => 1,
   'post_type'   => 'pactivity'
 );
  
