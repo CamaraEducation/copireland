@@ -71,7 +71,7 @@ get_currentuserinfo();
   Action
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Acount</a>
+    <a class="dropdown-item" href="http://techspace.camara.org/Dev/profile.php">Acount</a>
     <a class="dropdown-item" href="<?php echo wp_logout_url(); ?>">Logout</a>
   </div>
 </span>
@@ -79,10 +79,9 @@ get_currentuserinfo();
 <?php
 
 } else {
-    //echo 'Welcome, visitor!';
+    echo 'Welcome, visitor!';
     ?>
-    
-    <button type="button" class="btn btn-outline-primary"><a href=""> Account Login </a> </button>
+    <input type="button" class="btn btn-outline-primary" value="Account Login" onclick="window.location.href='http://techspace.camara.org/Dev/wp-login.php'"/>
 <?php
 }
 ?>

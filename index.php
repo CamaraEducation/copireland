@@ -29,8 +29,6 @@ if ( is_user_logged_in() ) {
 ?>
 	</section>
 	
-
-
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -182,8 +180,13 @@ elseif($cash >=21 && $cash <=25) {
 
 function getactivity($maxNumb){
 $args = array(
+<<<<<<< HEAD
   'numberposts' => $maxNumb,
   'post_type'   => 'activity'
+=======
+  'numberposts' => 1,
+  'post_type'   => 'pactivity'
+>>>>>>> 514698af0837ffee1ffcec1ce1941550d58406dc
 );
  
 $lastposts = get_posts( $args );
