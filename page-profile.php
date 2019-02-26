@@ -3,7 +3,11 @@
 *@package Techspace
 */
 
+echo  "yared prifle";
+
 get_header(); ?>
+
+echo "profile page";
 <?php
     require_once(dirname(__FILE__) . '/wp-config.php');
     $wp->init();
