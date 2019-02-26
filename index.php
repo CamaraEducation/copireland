@@ -180,13 +180,9 @@ elseif($cash >=21 && $cash <=25) {
 
 function getactivity($maxNumb){
 $args = array(
-<<<<<<< HEAD
+
   'numberposts' => $maxNumb,
   'post_type'   => 'activity'
-=======
-  'numberposts' => 1,
-  'post_type'   => 'pactivity'
->>>>>>> 514698af0837ffee1ffcec1ce1941550d58406dc
 );
  
 $lastposts = get_posts( $args );
