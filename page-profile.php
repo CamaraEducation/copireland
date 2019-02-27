@@ -2,24 +2,22 @@
 /**
 *@package Techspace
 */
-
-echo  "yared prifle";
+get_template_part( 'content', 'profile' );
 
 get_header(); ?>
 
-echo "profile page";
 <?php
-    require_once(dirname(__FILE__) . '/wp-config.php');
-    $wp->init();
-    $wp->parse_request();
-    $wp->query_posts();
-    $wp->register_globals();
-    $wp->send_headers();
+    // require_once(dirname(__FILE__) . '/wp-config.php');
+    // $wp->init();
+    // $wp->parse_request();
+    // $wp->query_posts();
+    // $wp->register_globals();
+    // $wp->send_headers();
 
-    // Your Wordpress Functions here...
-    echo site_url();
+    // echo site_url();
+    echo  "yared prifle";
 ?>
 	<!-- section -->
-  <?php  echo do_shortcode( '[ultimatemember form_id="12"]' ); ?>
+  <?php  echo do_shortcode( '[ultimatemember form_id="9"]' ); ?>
 
 <?php get_footer(); ?>
