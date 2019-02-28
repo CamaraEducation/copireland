@@ -79,12 +79,13 @@ add_action('wp_logout','logout_page');
 
 function admin_login_redirect( $redirect_to, $request, $user )
 {
+
 global $user;
 $steam_page  = home_url( '/steam/' );
 if( isset( $user->roles ) && is_array( $user->roles ) ) {
 if( in_array( "administrator", $user->roles ) ) {
 return $redirect_to;
-} if else ( in_array( "steam", $user->roles ) ){
+} else  {
 return home_url();
 }
 }
@@ -93,4 +94,5 @@ else
 return $redirect_to;
 }
 }
+
 add_filter("login_redirect", "admin_login_redirect", 10, 3);
