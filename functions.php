@@ -21,40 +21,76 @@ register_nav_menu('primary','Primary Header Navigation');
 add_action('wp_enqueue_scripts','irelandcop_script_enqueue');
 add_action('init','irelandcop_theme_setup');
 
-// /* Main redirection of the default login page */
-// function redirect_login_page() {
-// 	// $login_page  = home_url('/index.php/login/');
-// 	// $page_viewed = basename($_SERVER['REQUEST_URI']);
 
-// 	// if($page_viewed == "page-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
-// 	// 	wp_redirect($login_page);
-// 	// 	exit;
-// 	// }
-// }
-// add_action('init','redirect_login_page');
+/* Main redirection of the default login page */
+function redirect_login_page() {
+  $login_page  = home_url( '/login/' );
+  $page_viewed = basename($_SERVER['REQUEST_URI']);
+ 
+  if( $page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
+    wp_redirect($login_page);
+    exit;
+  }
+}
+add_action('init','redirect_login_page');
 
-// /* Where to go if a login failed */
-// function custom_login_failed() {
-// 	$login_page  = home_url('/login/');
-// 	wp_redirect($login_page . '?login=failed');
-// 	exit;
-// }
-// add_action('wp_login_failed', 'custom_login_failed');
+function login_failed() {
+  $login_page  = home_url( '/login/' );
+  wp_redirect( $login_page . '?login=failed' );
+  exit;
+}
+add_action( 'wp_login_failed', 'login_failed' );
+ 
+function verify_username_password( $user, $username, $password ) {
+  $login_page  = home_url( '/login/' );
+    if( $username == "" || $password == "" ) {
+        wp_redirect( $login_page . "?login=empty" );
+        exit;
+    }
+}
+add_filter( 'authenticate', 'verify_username_password', 1, 3);
 
-// /* Where to go if any of the fields were empty */
-// function verify_user_pass($user, $username, $password) {
-// 	$login_page  = home_url('/profile/');
-// 	if($username == "Yared" || $password == "admin") {
-// 		wp_redirect($login_page . "?login=empty");
-// 		exit;
-// 	}
-// }
-// add_filter('authenticate', 'verify_user_pass', 1, 3);
+function my_login_redirect( $redirect_to, $request, $user ) {
+    //is there a user to check?
+    global $user;
+    if ( isset( $user->roles ) && is_array( $user->roles ) ) {
 
-// /* What to do on logout */
-// function logout_redirect() {
-// 	$login_page  = home_url('/login/');
-// 	wp_redirect($login_page . "?login=false");
-// 	exit;
-// }
-// add_action('wp_logout','logout_redirect');
+        if ( in_array( 'jsa_contributor', $user->roles ) ) {
+            // redirect them to the default place
+            $data_login = get_option('axl_jsa_login_wid_setup');
+
+            return get_permalink($data_login[0]);
+        } else {
+            return home_url();
+        }
+    } else {
+        return $redirect_to;
+    }
+}
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
+
+function logout_page() {
+  $login_page  = home_url( '/login/' );
+  
+  wp_redirect( $login_page . "?login=false" );
+  exit;
+}
+add_action('wp_logout','logout_page');
+
+function admin_login_redirect( $redirect_to, $request, $user )
+{
+global $user;
+$steam_page  = home_url( '/steam/' );
+if( isset( $user->roles ) && is_array( $user->roles ) ) {
+if( in_array( "administrator", $user->roles ) ) {
+return $redirect_to;
+} if else ( in_array( "steam", $user->roles ) ){
+return home_url();
+}
+}
+else
+{
+return $redirect_to;
+}
+}
+add_filter("login_redirect", "admin_login_redirect", 10, 3);

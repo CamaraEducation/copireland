@@ -17,7 +17,7 @@
 		<?php
 		//the_content();
 
-		//wp_login_form( array('redirect' => home_url()) );
+		wp_login_form( array('redirect' => home_url()) );
 
 		wp_link_pages(
 			array(
@@ -31,17 +31,5 @@
 		);
 		?>
 	</div><!-- .entry-content -->
-
-	<?php
-		// edit_post_link(
-		// 	sprintf(
-		// 		/* translators: %s: Name of current post */
-		// 		__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-		// 		get_the_title()
-		// 	),
-		// 	'<footer class="entry-footer"><span class="edit-link">',
-		// 	'</span></footer><!-- .entry-footer -->'
-		// );
-		?>
 
 </article> <!--#post-## -->
