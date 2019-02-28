@@ -15,9 +15,9 @@
 
 	<div class="entry-content">
 		<?php
-		the_content();
+		//the_content();
 
-		wp_login_form( array('redirect' => home_url()) );
+		//wp_login_form( array('redirect' => home_url()) );
 
 		wp_link_pages(
 			array(
