@@ -1,3 +1,5 @@
+<?php /* Template Name: Main Template  */ ?>
+
 <?php get_header();?>
 
 
@@ -58,10 +60,6 @@ foreach ( $tax_terms as $term ) {
 
 <section>
 		<div class="container">
-			<h2 class="btitle">STEAM Starter Kit</h2>
-			<hr>
-		</div>
-		
 	<?php 
 if (have_posts()) {
   while (have_posts()) {
@@ -70,7 +68,8 @@ if (have_posts()) {
   }
 } 
 ?>
-	</section>
+	</div>
+</section>
 
 <hr>
 

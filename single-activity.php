@@ -1,48 +1,48 @@
+<?php get_header();?>
+
 <?php
-/**
- * The template for displaying all single posts and attachments
- *
- * @package WordPress
- * @subpackage Twenty_Fifteen
- * @since Twenty Fifteen 1.0
- */
- 
-get_header(); ?>
- 
-    <div id="primary" class="content-area">
-        <main id="main" class="site-main" role="main">
- 
-        <?php
-        // Start the loop.
-        while ( have_posts() ) : the_post();
- 
-            /*
-             * Include the post format-specific template for the content. If you want to
-             * use this in a child theme, then include a file called called content-___.php
-             * (where ___ is the post format) and that will be used instead.
-             */
-            get_template_part( 'content', get_post_format() );
- 
-            // If comments are open or we have at least one comment, load up the comment template.
-            if ( comments_open() || get_comments_number() ) :
-                comments_template();
-            endif;
- 
-            // Previous/next post navigation.
-            the_post_navigation( array(
-                'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="screen-reader-text">' . __( 'Next post:', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="post-title">%title</span>',
-                'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="screen-reader-text">' . __( 'Previous post:', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="post-title">%title</span>',
-            ) );
- 
-        // End the loop.
-        endwhile;
-        ?>
- 
-        </main><!-- .site-main -->
-    </div><!-- .content-area -->
- 
-<?php get_footer(); ?>
+function getPostTerms($id,$tax){
+$term_list = wp_get_post_terms($id, $tax, array("fields" => "all"));
+foreach($term_list as $term_single) {
+return $term_single->name; //do something here
+}
+}
+?>
+    
+
+        <div class="container">
+            Dashboard > STEAM > Maker > STEAM Racers
+        
+        </div>
+
+
+        <?php while ( have_posts() ) : the_post(); ?>
+}
+
+<div class="container">
+            
+            <h2 class="btitle"><?php echo the_title();?></h2>
+            <hr>
+        </div>
+
+<?php echo getPostTerms($post->ID,'activity_level'); ?> <br>
+<?php echo get_post_meta($post->ID, 'Duration', true); ?> <br>
+<?php echo getPostTerms($post->ID,'activity_agerange'); ?> <br>
+
+<?php
+
+?>
+
+<?php the_content(); ?>
+
+
+<?php endwhile; // end of the loop. ?>
+
+<hr>
+
+
+
+
+
+
+<?php get_footer();?>

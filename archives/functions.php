@@ -13,14 +13,6 @@ function irelandcop_script_enqueue() {
 
 }
 
-add_filter( 'query_vars', 'addnew_query_vars', 10, 1 );
-function addnew_query_vars($vars)
-{   
-    $vars[] = 'var1'; // var1 is the name of variable you want to add       
-    return $vars;
-}
-
-
 function irelandcop_theme_setup(){
 add_theme_support('menus');
 register_nav_menu('primary','Primary Header Navigation');

@@ -5,9 +5,13 @@
  *
  */
 
-//get_header(); 
-get_header();
-?>
+//get_header(); ?>
+<div class="login-branding">
+  <a href="/images/techspacelogo.png" class="login-logo">Techspace.camara.org</a>
+  <p class="login-desc">
+    Techspace.camara.org.
+  </p>
+</div>
 <div class="login-form">
 <?php
 // $args = array(

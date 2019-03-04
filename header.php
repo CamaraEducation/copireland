@@ -81,7 +81,7 @@ get_currentuserinfo();
 } else {
     echo 'Welcome, visitor!';
     ?>
-    <input type="button" class="btn btn-outline-primary" value="Account Login" onclick="window.location.href='http://techspace.camara.org/Dev/wp-login.php'"/>
+    <input type="button" class="btn btn-outline-primary" value="Account Login" onclick="window.location.href='login'"/>
 <?php
 }
 ?>
