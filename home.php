@@ -40,7 +40,7 @@ if ( is_user_logged_in() ) {
                     
             
 <?php
-$tax_terms = get_terms( 'activity_pathways', 'orderby=id');
+$tax_terms = get_terms( 'pathway', 'orderby=id');
 //var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
 

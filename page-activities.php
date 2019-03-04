@@ -24,7 +24,7 @@
 					
 			
 <?php
-$tax_terms = get_terms( 'activity_pathways', 'orderby=id');
+$tax_terms = get_terms( 'pathway', 'orderby=id');
 //var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
 
@@ -72,7 +72,7 @@ foreach ( $tax_terms as $term ) {
 
 
 <?php // Output all Taxonomies names with their respective items
-$topics = get_terms('activity_topic');
+$topics = get_terms('topic');
 foreach( $topics as $topic ):
 ?>                          
     <h3><?php echo $topic->name; // Print the term name ?> Activities </h3> 
@@ -100,12 +100,12 @@ foreach( $topics as $topic ):
 'tax_query' => array(
             'relation' => 'AND',
             array(
-                'taxonomy' => 'activity_pathways',
+                'taxonomy' => 'pathway',
                 'field' => 'name',
                 'terms' => array( 'steam' )
             ),
             array(
-                'taxonomy' => 'activity_topic',
+                'taxonomy' => 'topic',
                 'field' => 'name',
                 'terms' => $topic->name
             )
