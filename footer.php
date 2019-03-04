@@ -85,6 +85,6 @@
 
 
 <?php wp_footer();?>
-</div> <!--CLOSE  CONTIANER --
+ <!--CLOSE  CONTIANER --
 </body>
 </html>

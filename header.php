@@ -8,10 +8,6 @@
 		<?php wp_head() ?>
 	</head>
 	<body>
-	
-		<!-- main continer -->
-		<div class="container"> 
-			
 
 <!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
