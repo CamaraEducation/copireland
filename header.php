@@ -35,7 +35,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link text-menu" href="<?php echo home_url(); ?>/program">Programme Planning </a>
+					<a class="nav-link text-menu" href="<?php echo home_url(); ?>/programme-planning">Programme Planning </a>
 				</li>
 
 				<li class="nav-item">
