@@ -39,48 +39,101 @@
 				</li>
 			</ul>
 			
-			  <div>
-			  	
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<?php //echo 'Number of posts published by user: ' . $cash = count_user_posts( $current_user->ID ); 
+		$cash = count_user_posts( $current_user->ID );
+            // $cash = count_user_posts( $current_user->ID;
+            echo "<br>";
+            if($cash >=0 && $cash <=5){
+                //echo "1 star";
+                ?>
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
 
-<?php
+            <?php }
+            elseif($cash >=6 && $cash <=10){
+                //echo "2 start";
+                ?>
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+            <?php }
+            elseif($cash >=11 && $cash <=15){
+                //echo "3 start";
+                ?>
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+            <?php }
+            elseif($cash >=16 && $cash <=20){
+               // echo "4 start";
+                ?>
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+            <?php }
+            elseif($cash >=21 && $cash <=25) {
+               // echo "5 start";
+                ?>
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+            <?php }
+            ?>
 
-$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-$numSegments = count($segments); 
-global $currentPathway;
-$currentPathway= $segments[$numSegments - 1];
+					<?php
+					//<span class="fa fa-star checked"></span>
+					//<span class="fa fa-star"></span>
+					
+					$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+					$numSegments = count($segments); 
+					global $currentPathway;
+					$currentPathway= $segments[$numSegments - 1];
 
-//echo 'Current Segment: ' , $currentPathway;
+					//echo 'Current Segment: ' , $currentPathway;
 
-if ( is_user_logged_in() ) {
-   //echo 'Welcome, registered user!';
+					if ( is_user_logged_in() ) {
+					   //echo 'Welcome, registered user!';
 
-//get user Pathway
-	//$currentPathway ="steam";
-global $current_user;
-get_currentuserinfo();
-//echo get_avatar($current_user->ID, 64);
-?>
-<?php echo get_avatar($current_user->ID, 64); ?>
+					//get user Pathway
+						//$currentPathway ="steam";
+					global $current_user;
+					get_currentuserinfo();
+					//echo get_avatar($current_user->ID, 64);
+					?>
 
-  <span class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  Action
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="http://techspace.camara.org/Dev/profile.php">Acount</a>
-    <a class="dropdown-item" href="<?php echo wp_logout_url(); ?>">Logout</a>
-  </div>
-</span>
+					<?php echo get_avatar($current_user->ID, 64); ?>
 
-<?php
+					  <span class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  Action
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					    <a class="dropdown-item" href="http://techspace.camara.org/Dev/profile.php">Acount</a>
+					    <a class="dropdown-item" href="<?php echo wp_logout_url(); ?>">Logout</a>
+					  </div>
+					</span>
 
-} else {
-    echo 'Welcome, visitor!';
-    ?>
-    <input type="button" class="btn btn-outline-primary" value="Account Login" onclick="window.location.href='login'"/>
-<?php
-}
-?>
+					<?php
+
+					} else {
+					    echo 'Welcome, visitor!';
+					    ?>
+					    <input type="button" class="btn btn-outline-primary" value="Account Login" onclick="window.location.href='login'"/>
+					<?php
+					}
+					?>
 			
 				<?php 
 				function get_current_user_role() {
@@ -91,6 +144,7 @@ get_currentuserinfo();
 					}
 				?>
 			  </div>
+
 
 			  
 		</div>

@@ -36,6 +36,9 @@ body {
 	margin-bottom: -5px;
 }
 }
+.checked {
+  color: #FFFF00 !important;
+}
 .star-rating {
 	line-height:22px;
 	font-size:1.25em;
