@@ -25,7 +25,11 @@ return $term_single->name; //do something here
 
 
         <div class="container">
-			<h2 class="btitle">STEAM Racers</h2>
+			<h1 class="btitle"> <?php echo the_title();?>  </h1>
+<button type="button" class="btn btn-outline-danger">
+<?php echo getPostTerms($post->ID,'tool'); ?>
+</button>
+			 
 			<hr>
 		</div>
 
@@ -50,7 +54,7 @@ return $term_single->name; //do something here
 
 
 <!---- FEATURED IMAGE -->
-<img src="<?php the_field('featured_image'); ?>" width="690" height="440" alt="aaaaa" />
+<img src="<?php the_field('featured_image'); ?>" width="690" height="440" alt="aaaaa" style="margin-top:25px"/>
 
 
 				</div>
@@ -93,11 +97,11 @@ return $term_single->name; //do something here
 
 	<section class="body">
 		<div class="container">
-			<h2 class="btitle">Step-by-Step-Guide</h2>
+			<h2s class="btitle">Step-by-Step-Guide</hs2>
 			<hr>
 		</div>
-
 		<div class="container">
+
 			<div class="row">
 				<div class="col-md-8">
 					<div class="col-md-10 aguidebackground">
@@ -105,7 +109,7 @@ return $term_single->name; //do something here
 
 
 <!----- content ------>
-<p>
+
 	
 YOUR INSTRUCTOR 
 
@@ -121,9 +125,9 @@ echo $posts['user_avatar'];
 ?>
 <hr>
 
-<p>
+
 	<?php echo the_content();?>
-</p>
+
 					
 </div>
 
@@ -165,14 +169,14 @@ echo $posts['user_avatar'];
 
 	<section class="body">
 		<div class="container">
-			<h2 class="btitle">Activity Tried & Tested</h2>
+			<h2w class="btitle">Activity Tried & Tested</hw2>
 			<hr>
 		</div>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 commentbox">
-					
+					asdfasdfas
 				</div>
 
 				<div class="col-md-4">
