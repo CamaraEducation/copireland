@@ -47,3 +47,5 @@ if ( $login === "failed" ) {
   echo '<p class="login-msg"><strong>ERROR:</strong> You are logged out.</p>';
 }
 ?>
+
+<?php get_header(); ?>

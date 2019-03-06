@@ -167,7 +167,9 @@ elseif($cash >=21 && $cash <=25) {
 
     <!-- Second Div -->
     <section>
+        <div class="container">
                     <hs2 class="btitle">Steam Activities</hs2>
+                </div>
             <hr>
         
         <div class="container">
@@ -254,9 +256,11 @@ bb
 
 <!-- Third Div -->
     <section>
+        <div class="container">
             <h22 class="btitle">Advanced Program Plans</h22>
             <hr>
-        
+        </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -281,8 +285,9 @@ bb
         </div>
     </section>
     <!-- End of Third Div -->
+<div class="container">
 <hr>
-
+</div>
 
 
 

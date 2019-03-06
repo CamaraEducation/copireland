@@ -61,7 +61,9 @@ foreach ( $tax_terms as $term ) {
 			<h2 class="btitle">STEAM Starter Kit</h2>
 			<hr>
 		</div>
-		
+
+
+		<div class="container">
 	<?php 
 if (have_posts()) {
   while (have_posts()) {
@@ -70,13 +72,13 @@ if (have_posts()) {
   }
 } 
 ?>
+
+  </div>
 	</section>
 
+<div class="container">
 <hr>
-
-
-
-
+</div>
 
 
 <?php get_footer();?>

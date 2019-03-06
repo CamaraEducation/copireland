@@ -47,7 +47,6 @@ body {
 	/* Sizing */
 	width: 100%;
 	height: 295px;
-	margin:0px;
 	background: #e6eef3;
 	/* Flexbox stuff */
 	display: flex;
@@ -55,7 +54,6 @@ body {
 	align-items: center;
 	/* Text styles */
 	text-align: center;
-
 }
 .profile-name{
 	font-family: Lato;
@@ -355,4 +353,28 @@ section .section-title {
 	text-align: left;
 	letter-spacing: -0.2px;
 	color: #3E4C59;
+}
+.cardmargin{
+	margin-top: 10px;
+}
+.aguidebackground{
+	background: #FFFFFF;
+	/* Small drop shadow */
+	box-shadow: 0px 3px 5px rgba(25, 70, 93, 0.05);
+	border-radius: 10px;
+}
+.cardback{
+	background: #F5F7FA;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+.commentbox{
+	background: #FFFFFF;
+/* Small drop shadow */
+box-shadow: 0px 3px 5px rgba(25, 70, 93, 0.05);
+border-radius: 10px;
+}
+.textarea{
+	background: #F5F7FA;
 }

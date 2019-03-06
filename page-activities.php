@@ -1,4 +1,12 @@
 <?php get_header();?>
+<?php
+function getPostTerms($id,$tax){
+$term_list = wp_get_post_terms($id, $tax, array("fields" => "all"));
+foreach($term_list as $term_single) {
+return $term_single->name; //do something here
+}
+}
+?>
   <section class="hero">
 		<div style="background-color:#3ECCCB;width:100%;margin:0px;">
 
@@ -74,9 +82,10 @@ foreach ( $tax_terms as $term ) {
 <?php // Output all Taxonomies names with their respective items
 $topics = get_terms('topic');
 foreach( $topics as $topic ):
-?>                          
+?>            
+<div class="container">              
     <h3><?php echo $topic->name; // Print the term name ?> Activities </h3> 
-  
+
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link active" href="#">Beginner</a>
@@ -89,7 +98,7 @@ foreach( $topics as $topic ):
 				</li>
 			</ul>
 			   
-   
+     </div>
 <div class="container">
 				<hr>
     <div class="card-deck">
@@ -118,11 +127,12 @@ foreach( $topics as $topic ):
       ?>        
           
 	<div class="card">
-						<img class="card-img-top cardback" src="assets/images/cardImage.png" alt="Card image cap">
+						<img class="card-img-top cardback" src="<?php the_field('featured_image'); ?>"  width="279" height="129" alt="Card image cap">
 						<div class="card-body">
-							<h5 class="card-small">STEAM</h5>
-							<h5 class="card-big">Scribble Bots - <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-							<a href="" class="card-tag">Circuits</a>
+							<h5 class="card-small"><?php echo getPostTerms($post->ID,'pathway'); ?> </h5>
+							<h5 class="card-big"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+							<a href="" class="card-tag"><?php echo getPostTerms($post->ID,'tool'); ?></a>
+							<?php echo getPostTerms($post->ID,'level'); ?>
 						</div>
 					</div>
 
@@ -133,8 +143,9 @@ foreach( $topics as $topic ):
 
 
 
-
+<div class="container">
 <hr>
+</div>
 
 
 
