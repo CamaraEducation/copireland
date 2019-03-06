@@ -19,7 +19,6 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
@@ -37,61 +36,7 @@
 				<li class="nav-item">
 					<a class="nav-link text-menu" href="<?php echo home_url(); ?>/training">Training </a>
 				</li>
-			</ul>
-			
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<?php //echo 'Number of posts published by user: ' . $cash = count_user_posts( $current_user->ID ); 
-		$cash = count_user_posts( $current_user->ID );
-            // $cash = count_user_posts( $current_user->ID;
-            echo "<br>";
-            if($cash >=0 && $cash <=5){
-                //echo "1 star";
-                ?>
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-
-            <?php }
-            elseif($cash >=6 && $cash <=10){
-                //echo "2 start";
-                ?>
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-            <?php }
-            elseif($cash >=11 && $cash <=15){
-                //echo "3 start";
-                ?>
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-				<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-            <?php }
-            elseif($cash >=16 && $cash <=20){
-               // echo "4 start";
-                ?>
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
-            <?php }
-            elseif($cash >=21 && $cash <=25) {
-               // echo "5 start";
-                ?>
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
-            <?php }
-            ?>
-
+			</ul>		
 					<?php
 					//<span class="fa fa-star checked"></span>
 					//<span class="fa fa-star"></span>
@@ -112,7 +57,57 @@
 					get_currentuserinfo();
 					//echo get_avatar($current_user->ID, 64);
 					?>
+					<?php //echo 'Number of posts published by user: ' . $cash = count_user_posts( $current_user->ID ); 
+					$cash = count_user_posts( $current_user->ID );
+		            // $cash = count_user_posts( $current_user->ID;
+		            echo "<br>";
+		            if($cash >=0 && $cash <=5){
+		                //echo "1 star";
+		                ?>
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+						<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
 
+		            <?php }
+		            elseif($cash >=6 && $cash <=10){
+		                //echo "2 start";
+		                ?>
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+						<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		            <?php }
+		            elseif($cash >=11 && $cash <=15){
+		                //echo "3 start";
+		                ?>
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+						<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		            <?php }
+		            elseif($cash >=16 && $cash <=20){
+		               // echo "4 start";
+		                ?>
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		              	<img src="https://img.icons8.com/color/48/000000/star.png" style="width:20px;height:20px;">
+		            <?php }
+		            elseif($cash >=21 && $cash <=25) {
+		               // echo "5 start";
+		                ?>
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		                <img src="https://img.icons8.com/color/48/000000/filled-star.png" style="width:20px;height:20px;">
+		            <?php }
+		            ?>
 					<?php echo get_avatar($current_user->ID, 64); ?>
 
 					  <span class="dropdown">
@@ -144,9 +139,6 @@
 					}
 				?>
 			  </div>
-
-
-			  
 		</div>
 	</nav>
 	<?php //wp_nav_menu(array('theme_location'=>'primary'));?>
