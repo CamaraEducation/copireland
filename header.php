@@ -38,7 +38,7 @@
 					<a class="nav-link text-menu" href="<?php echo home_url(); ?>/training">Training </a>
 				</li>
 			</ul>
-			<img src="<?php echo get_template_directory_uri();  ?>/images/start.png" class="img-responsive"  alt="COP">
+			
 			  <div>
 			  	
 
