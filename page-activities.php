@@ -130,7 +130,7 @@ foreach( $topics as $topic ):
             'numberposts' => 4, // to show all posts in this taxonomy, could also use 'numberposts' => -1 instead
           ));
 
-          var_dump($posts);
+//          var_dump($posts);
 
           foreach($posts as $post): // begin cycle through posts of this taxonmy
             setup_postdata($post); //set up post data for use in the loop (enables the_title(), etc without specifying a post ID)
