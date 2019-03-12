@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 		<meta name="viewport" content="width=device-width", initial-sacle="1">
-		<title>Digital Creativity Dashboard </title>
+		<title>Techspace CoP </title>
 		<?php wp_head() ?>
 	</head>
 	<body>
@@ -14,7 +14,7 @@
 		<a class="navbar-brand">
 			<span><img src="<?php echo get_template_directory_uri();  ?>/images/techspacelogo.png" class="img-responsive" width="64" height="64" alt="COP"></span></a>
 	
-	
+
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -44,12 +44,24 @@
 
 <?php
 
-$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-$numSegments = count($segments); 
-global $currentPathway;
-$currentPathway= $segments[$numSegments - 1];
+/** Set some global variables */
+$pathways = get_terms( 'pathway', array(
+    'orderby'    => 'count',
+    'hide_empty' => 1 //hide opat
+) );
 
-//echo 'Current Segment: ' , $currentPathway;
+//var_dump($pathways);
+
+global $currentPathway;
+if ( ! empty( $pathways ) && ! is_wp_error( $pathways ) ){ 
+ $currentPathway = array_values($pathways)[0]->slug;
+}else {
+   $currentPathway = "STEAM";
+ // echo $newP;
+}
+
+echo $currentPathway;
+
 
 if ( is_user_logged_in() ) {
    //echo 'Welcome, registered user!';

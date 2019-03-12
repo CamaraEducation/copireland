@@ -24,6 +24,7 @@ if ( is_user_logged_in() ) {
         </div>
         <?php
         } else {
+            
     echo 'Welcome, visitor!';
 }
 ?>
@@ -46,8 +47,10 @@ foreach ( $tax_terms as $term ) {
 
 ?>
     
-    <a href=" <?php echo $term->slug; ?>" class="tabbednavlink" role="button" "<?php echo $currentPathway;?>"> <?php echo $term->name; ?> </a>
+    <a href="activities/?a=<?php echo $term->slug; ?>" class="tabbednavlink" role="button" > <?php echo $term->name; ?> </a>
+
 <?php
+
 }
 ?>
     </div>          
@@ -179,25 +182,45 @@ elseif($cash >=21 && $cash <=25) {
                         
 
 <?php
+//echo sprintf($currentPathway);
 
-function getactivity($maxNumb){
-$args = array(
+function getactivity($maxNumb, $pathway){
+/*
+    $args = array(
 
   'numberposts' => $maxNumb,
   'post_type'   => 'activity'
 );
- 
+ */
+$args=array(
+            'post_type' => 'activity',
+            
+'tax_query' => array(
+            'relation' => 'AND',
+            array(
+                'taxonomy' => 'pathway',
+                'field' => 'name',
+                'terms' => array($pathway)
+            ),
+            
+        ),
+
+            'numberposts' =>$maxNumb, // to show all posts in this taxonomy, could also use 'numberposts' => -1 instead
+          );
+
+
+
 $lastposts = get_posts( $args );
 return $lastposts;
 }
 //show latest psots
-$maxPosts = 8;
-$totalPosts = count(getactivity($maxPosts));
+$maxPosts = 6;
+$totalPosts = count(getactivity($maxPosts,$currentPathway));
 If($totalPosts %2 != 0){
 $newMax = $totalPosts-1;
 $lastposts=getactivity($newMax);
 }else {
-    $lastposts=getactivity($maxPosts);
+    $lastposts=getactivity($maxPosts,$currentPathway);
 
 }
 

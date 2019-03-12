@@ -19,7 +19,13 @@ return $term_single->name; //do something here
 </div>
 </section>
 
-<?php echo $_GET['c'] ;?>
+
+<?php 
+
+if($_GET['a']){
+	$currentPathway=$_GET['a'];
+}
+?>
 
 <!--- PTHWAY NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,7 +44,7 @@ foreach ( $tax_terms as $term ) {
 
 ?>
 	
-	<a href=" <?php echo $term->slug; ?>" class="tabbednavlink" role="button" "<?php echo $currentPathway;?>"> <?php echo $term->name; ?> </a>
+	<a href="activities/?a=<?php echo $term->slug; ?>" class="tabbednavlink" role="button"> <?php echo $term->name; ?> </a>
 <?php
 }
 ?>
@@ -111,7 +117,7 @@ foreach( $topics as $topic ):
             array(
                 'taxonomy' => 'pathway',
                 'field' => 'name',
-                'terms' => array( 'steam' )
+                'terms' => array( $currentPathway )
             ),
             array(
                 'taxonomy' => 'topic',
