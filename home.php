@@ -46,7 +46,7 @@ foreach ( $tax_terms as $term ) {
 
 ?>
     
-    <a href="activities/?a=<?php echo $term->slug; ?>" class="tabbednavlink" role="button" > <?php echo $term->name; ?> </a>
+    <a href="activities/?a=<?php echo $term->name; ?>" class="tabbednavlink" role="button" > <?php echo $term->name; ?> </a>
 
 <?php
 
