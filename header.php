@@ -57,7 +57,7 @@ $pathways = get_terms( 'pathway', array(
 
 global $currentPathway;
 if ( ! empty( $pathways ) && ! is_wp_error( $pathways ) ){ 
- $currentPathway = array_values($pathways)[0]->slug;
+ $currentPathway = array_values($pathways)[0]->name;
 }else {
    $currentPathway = "STEAM";
  // echo $newP;

@@ -6,7 +6,6 @@
         <?php
 if ( is_user_logged_in() ) {
    
-
 ?>
 
         <div class="col-xs-6 col-centered">
@@ -168,6 +167,7 @@ function getactivity($maxNumb, $pathway){
   'post_type'   => 'activity'
 );
  */
+
 $args=array(
             'post_type' => 'activity',
             
@@ -186,15 +186,17 @@ $args=array(
 
 
 
+
 $lastposts = get_posts( $args );
 return $lastposts;
 }
+
 //show latest psots
 $maxPosts = 6;
 $totalPosts = count(getactivity($maxPosts,$currentPathway));
 If($totalPosts %2 != 0){
 $newMax = $totalPosts-1;
-$lastposts=getactivity($newMax);
+$lastposts=getactivity($newMax,$currentPathway);
 }else {
     $lastposts=getactivity($maxPosts,$currentPathway);
 

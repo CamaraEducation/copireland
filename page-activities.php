@@ -87,6 +87,7 @@ foreach ( $tax_terms as $term ) {
 
 <?php // Output all Taxonomies names with their respective items
 $topics = get_terms('topic');
+
 foreach( $topics as $topic ):
 ?>            
 <div class="container">              
