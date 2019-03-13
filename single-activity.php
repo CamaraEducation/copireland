@@ -197,7 +197,15 @@ echo $posts['user_avatar'];
 <hr>
 </div>
 
+<?php 
 
+if ( comments_open());
+comments_template();
+
+endwhile; // end of the loop. ?>
+<?php comments_template( '', true ); ?>
+<?php wp_list_comments(); ?>
+<?php comment_form(); ?>
 
 
 <?php get_footer();?>
