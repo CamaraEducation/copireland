@@ -257,7 +257,7 @@ if ( $lastposts ) {
         
                 
                  $count++;
-    if($count % 2 == 0) echo '</div> <div class="col-md-4 my-2">';
+    if($count % 2 == 0) echo '</div> <div class="row">';
     endforeach; 
     wp_reset_postdata();
 }

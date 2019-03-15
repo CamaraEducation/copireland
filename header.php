@@ -21,6 +21,7 @@ if ( ! empty( $pathways ) && ! is_wp_error( $pathways ) ){
 
 
 
+
 				function get_current_user_role() {
 					global $wp_roles;
 					$current_user = wp_get_current_user();
