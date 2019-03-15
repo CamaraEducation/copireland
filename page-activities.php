@@ -1,4 +1,6 @@
 <?php get_header();?>
+
+
 <?php
 function getPostTerms($id,$tax){
 $term_list = wp_get_post_terms($id, $tax, array("fields" => "all"));
@@ -12,33 +14,23 @@ return $term_single->name; //do something here
 if($_GET['a']){
 	$currentPathway=$_GET['a'];
 }
+
+function gettermImage($pathwayName){
+ $term = get_term_by('name',$pathwayName, 'pathway'); 
+ //var_dump($term);
+ $name = $term->icon_image;
+$imagePath = get_field('icon_image', $term->taxonomy.'_'.$term->term_id);
+return $imagePath;
+}
+
 ?>
+
 
 
 <!--  Hero Section -->
     <section id="hero">
-        <div class="hero-container">
-
-        <?php
-if ( is_user_logged_in() ) {
-   
-?>
-
-            <div class="col-xs-2 col-centered mx-2">
-                <span>
-
-                <img src="<?php echo get_avatar_url($current_user->ID); ?>" class="img-responsive" width="125" height="125" alt="COP">
-            </span>
-            </div>
-            <div class="col-xs-6 col-centered">
-                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
-                <p class="txt-pos">
-                    <?php  echo array_shift($current_user->roles); ?> @ Camara
-
-                </p>
-            </div>
-    <?php } else { ?>
-
+        
+        <div class="hero-container" style="background-color:#399ACA">
 
             <div class="col-xs-2 col-centered mx-2">
                 <span>
@@ -53,8 +45,6 @@ if ( is_user_logged_in() ) {
                 </p>
             </div>
 
-
-<?php } ?>
         </div>
     
     </section>

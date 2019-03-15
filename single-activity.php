@@ -199,10 +199,10 @@ echo $posts['user_avatar'];
 
 <?php 
 
-if ( comments_open());
-comments_template();
+//if ( comments_open());
+//comments_template();
 
-endwhile; // end of the loop. ?>
+//endwhile; // end of the loop. ?>
 <?php comments_template( '', true ); ?>
 <?php wp_list_comments(); ?>
 <?php comment_form(); ?>

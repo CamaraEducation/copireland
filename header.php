@@ -31,16 +31,7 @@ if ( ! empty( $pathways ) && ! is_wp_error( $pathways ) ){
 				
 ?>
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
-		<meta name="viewport" content="width=device-width", initial-sacle="1">
-		<title>Techspace CoP </title>
-		<?php wp_head() ?>
-	</head>
-	<body>
+
 <!doctype html>
 <html lang="en">
 	<head>
