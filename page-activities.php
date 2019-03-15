@@ -7,19 +7,6 @@ return $term_single->name; //do something here
 }
 }
 ?>
-  <section class="hero">
-		<div style="background-color:#3ECCCB;width:100%;margin:0px;">
-
-
-			
-		
-<img src="<?php echo get_template_directory_uri();  ?>/images/activities.png" class="img-responsive"  alt="COP">
-<p> ACTIVIITES </p>
-
-</div>
-</section>
-
-
 <?php 
 
 if($_GET['a']){
@@ -27,32 +14,78 @@ if($_GET['a']){
 }
 ?>
 
-<!--- PTHWAY NAVIGATION -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-			<!-- Tabs -->
-	<div class="container">
-		<div class="row">
-			<div class="steamtabbednav">
-				<div class="tabbednavlinks">
-					
-			
+<!--  Hero Section -->
+    <section id="hero">
+        <div class="hero-container">
+
+        <?php
+if ( is_user_logged_in() ) {
+   
+?>
+
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
+
+                <img src="<?php echo get_avatar_url($current_user->ID); ?>" class="img-responsive" width="125" height="125" alt="COP">
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php  echo array_shift($current_user->roles); ?> @ Camara
+
+                </p>
+            </div>
+    <?php } else { ?>
+
+
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
+            <img src="<?php echo gettermImage($currentPathway); ?>" width="55" height="63"> 
+
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php echo $currentPathway; ?>  Activities
+                </p>
+            </div>
+
+
+<?php } ?>
+        </div>
+    
+    </section>
+    <!-- #hero -->
+
+
+
+
+<!-- Start Tab -->
+    <section>
+        <div class="container-fluid" style="background: #fff;">
+            <div class="container">
+            <ul class="nav mx-4" id="myTab" role="tablist">
+                
 <?php
 $tax_terms = get_terms( 'pathway', 'orderby=id');
 //var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
 
 ?>
-	
-	<a href="activities/?a=<?php echo $term->name; ?>" class="tabbednavlink" role="button"> <?php echo $term->name; ?> </a>
+    <li class="nav-item mx-4 tab-text1">
+                    <a class="nav-link <?php echo ($currentPathway == $term->name  ? active : none); ?>" id="home-tab" data-toggle="tab" href="activities/?a=<?php echo $term->name; ?>" role="tab" aria-controls="home" aria-selected="false" style="color: #<?php echo ($currentPathway == $term->name  ? 333333 : none);?>"><?php echo $term->name; ?></a>
+                </li>
 <?php
 }
 ?>
-	</div>			
-			</div>
-		</div>
-	</div>
-	</nav><!-- End PATH WYA NAGIVATION -->
+            </ul>
+        </div>
+        </div>
+    </section>
+    <!-- End Tab -->
 
 
 <section>
@@ -87,6 +120,9 @@ foreach ( $tax_terms as $term ) {
 
 <?php // Output all Taxonomies names with their respective items
 $topics = get_terms('topic');
+
+
+
 
 foreach( $topics as $topic ):
 ?>            

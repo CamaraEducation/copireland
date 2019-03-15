@@ -1,163 +1,195 @@
 <?php get_header();?>
 
 
-    <section class="hero">
+
+<!--  Hero Section -->
+    <section id="hero">
+        <div class="hero-container">
 
         <?php
 if ( is_user_logged_in() ) {
    
 ?>
 
-        <div class="col-xs-6 col-centered">
-            <span>
-<?php echo get_avatar($current_user->ID, 64); ?>
-</span>
-        </div>
-        <div class="col-xs-6 col-centered" style="padding-left: 12px;">
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
 
-            <p class="profile-name"><?php um_fetch_user( get_current_user_id() );
-                echo um_user('display_name'); // returns the display name of logged-in user
-                ?></p>
-            <p class="work-title"><?php global $current_user; echo array_shift($current_user->roles); ?> @ Camara</p>
+                <img src="<?php echo get_avatar_url($current_user->ID); ?>" class="img-responsive" width="125" height="125" alt="COP">
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php  echo array_shift($current_user->roles); ?> @ Camara
 
+                </p>
+            </div>
+    <?php } else { ?>
+
+
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
+            <img src="<?php echo gettermImage($currentPathway); ?>" width="55" height="63"> 
+
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php echo $currentPathway; ?>  Activities
+                </p>
+            </div>
+
+
+<?php } ?>
         </div>
-        <?php
-        } else {
-            
-    echo 'Welcome, visitor!';
-}
-?>
-    </section>
     
-<!--- PTHWAY NAVIGATION -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    </section>
+    <!-- #hero -->
 
-            <!-- Tabs -->
-    <div class="container">
-        <div class="row">
-            <div class="steamtabbednav">
-                <div class="tabbednavlinks">
-                    
-            
+
+<!-- Start Tab -->
+    <section>
+        <div class="container-fluid" style="background: #fff;">
+            <div class="container">
+            <ul class="nav mx-4" id="myTab" role="tablist">
+                
 <?php
 $tax_terms = get_terms( 'pathway', 'orderby=id');
 //var_dump($tax_terms);
 foreach ( $tax_terms as $term ) {
 
 ?>
-    
-    <a href="activities/?a=<?php echo $term->name; ?>" class="tabbednavlink" role="button" > <?php echo $term->name; ?> </a>
-
+    <li class="nav-item mx-4 tab-text1">
+                    <a class="nav-link <?php echo ($currentPathway == $term->name  ? active : none); ?>" id="home-tab" data-toggle="tab" href="activities/?a=<?php echo $term->name; ?>" role="tab" aria-controls="home" aria-selected="false" style="color: #<?php echo ($currentPathway == $term->name  ? 333333 : none);?>"><?php echo $term->name; ?></a>
+                </li>
 <?php
-
 }
 ?>
-    </div>          
-            </div>
+            </ul>
         </div>
-    </div>
-    </nav><!-- End PATH WYA NAGIVATION -->
+        </div>
+    </section>
+    <!-- End Tab -->
 
-<section>
+<section class="my-5">
         <div class="container">
-            <h2 class="btitle">STEAM Starter Kit</h2>
+            <h2 class="headtitle"><?php echo $currentPathway;?> Starter Kit</h2>
             <hr>
         </div>
-        <div class="container">
-            <div class="row">
+
+
+
+<div class="container">
+            <div class="row my-3">
                 <div class="col-md-8">
-                    <div class="row mr-2">
-                        <div class="col-md-12 box1 mb-3">
-
-            <img src="<?php echo get_template_directory_uri();  ?>/images/steam.png" class="img-responsive"  alt="COP">
-Introduction to STEAM Diital Youth Work
+                    <div class="row">
+                        <div class="col-md-12 my-2">
+                            <div class="card" style="background-color: #ffffff; border-radius: 10px;height: 168px;">
+                                <div class="card-header border-0 py-3 d-flex align-items-center my-3" style="background-color: #ffffff;">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/steam.png"" class="rounded-circle align-self-start mr-3" width="100" height="100">
+                                    <div>
+                                        <!-- <h4 class="card-title mb-0">Card title</h4> -->
+                                        <h6 class="intro-steam">Introduction to <?php echo $currentPathway;?> Digital Youth Work</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 my-2">
+                            <div class="card" style="background-color: #3ECCCB; border-radius: 10px;height: 168px;">
+                                <div class="card-header border-0 py-3 d-flex align-items-center my-3" style="background-color: #3ECCCB;">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/resource.png" class="rounded-circle align-self-start mr-3">
+                                    <div>
+                                        <h4 class="intro-title mb-0">Resource</h4>
+                                        <h6 class="intro-steam">Logic Models</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col box2 mr-2">
-                            RESOURCE <br>
-
-            <img src="<?php echo get_template_directory_uri();  ?>/images/resource.png" class="img-responsive"  alt="COP" >
-Logic Models
-                        </div>
-                        <div class="col box3">
-                            Activity <br>
-            <img src="<?php echo get_template_directory_uri();  ?>/images/activity.png" class="img-responsive"  alt="COP">
-Start with low-tech activities 
-
+                        <div class="col-md-6 my-2">
+                            <div class="card" style="background-color: #fff; border-radius: 10px;height: 168px;">
+                                <div class="card-header border-0 py-3 d-flex align-items-center my-3" style="background-color: #ffffff;">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/resource.png"" class="rounded-circle align-self-start mr-3">
+                                    <div>
+                                        <h4 class="intro-title mb-0" style="color:#9AA5B1;">Activity</h4>
+                                        <h6 class="intro-steam">Start with low-tech activities</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4 box4">
-                    <?php
-                    echo "<br>";
-                    // Get all users with role Project Officers.
-                    $user_query_po = new WP_User_Query( array( 'role' => 'um_project-officers' ) );
+<?php
+function getRoles($theRole){
+// Get all users with role Project Officers.
+$user_query_po = new WP_User_Query( array( 'role' => $theRole) );
                     // Get the total number of users for the current query. I use (int) only for sanitize.
                     $users_count_po = (int) $user_query_po->get_total();
                     // Echo a string and the value
-                    $string = $users_count_po .'   Project Officers';
-                    echo $string;
-                    echo "<br>";
-                    //======================================================
-                    // Get all users with role Cluster Coordinators.
-                    $user_query_cc = new WP_User_Query( array( 'role' => 'um_cluster-coordinators' ) );
-                    // Get the total number of users for the current query. I use (int) only for sanitize.
-                    $users_count_cc = (int) $user_query_cc->get_total();
-                    // Echo a string and the value
-                    echo $users_count_cc .'   Cluster Coordinators';
-                    echo "<br>";
-                    //======================================================
-                    // Get all users with role Digital Youth Work Experts.
-                    $user_query_dy = new WP_User_Query( array( 'role' => 'um_digital-youth-work-experts' ) );
-                    // Get the total number of users for the current query. I use (int) only for sanitize.
-                    $users_count_dy = (int) $user_query_dy->get_total();
-                    // Echo a string and the value
-                    echo $users_count_dy .'   Digital Youth Work Experts';
-                    echo "<br>";
-                    //======================================================
-                    // Get all users with role Community Contributors.
-                    $user_query_ccs = new WP_User_Query( array( 'role' => 'um_community-contributors' ) );
-                    // Get the total number of users for the current query. I use (int) only for sanitize.
-                    $users_count_ccs = (int) $user_query_ccs->get_total();
-                    // Echo a string and the value
-                    echo $users_count_ccs .'   Community Contributors';
-                    echo "<br>";
-                    echo "<br>";
-
-
-                    //======================================================
-                    /**
-                    *um_community-contributors, um_cluster-coordinators, um_digital-youth-work-experts, C
-                    */
+                    $string = $users_count_po ;
+                    return $string;                   
+}
 ?>
 
+    <div class="col-md-4 my-3">
+                    <div class="card" style="background-color: #E6EEF3;opacity: 0.78;border: 1px solid #CACCCE;box-sizing: border-box;border-radius: 4px;">
+                        <div class="card-body">
+                            <p class="meet-company-title">Meet the Community</p>
+                            <p class="meet-company-text"><?php echo getRoles("um_project-officers");?> &nbsp;  &nbsp; Project Officers <a href="#" class="badge badge-primary">officer</a></p>
+
+
+
+
+
+                            <p class="meet-company-text"><?php echo getRoles("um_cluster-coordinators");?> &nbsp;  &nbsp; Cluster Coordinators <a href="#" class="badge badge-success">cluster</a></p>
+                            <p class="meet-company-text"><?php echo getRoles("um_digital-youth-work-experts");?> &nbsp;  &nbsp; Digital Youth Work Experts <a href="#" class="badge badge-info">expert</a></p>
+                            <p class="meet-company-text"><?php echo getRoles("um_community-contributors");?> &nbsp;  &nbsp; Community Contributors <a href="#" class="badge badge-warning">contributor</a></p>
+                            <div class="my-4">
+                                <button type="button" class="btn btn-outline-warning my-2" style="border: 1px solid #EE603B;box-sizing: border-box;/* Drop Shadow */box-shadow: 0px 5px 15px rgba(25, 70, 93, 0.05);border-radius: 100px; color:#EE603B">Take to an Expert</button>
+                                <img src="<?php echo get_avatar_url($current_user->ID); ?>" class="rounded-circle z-depth-0 md-avatar" alt="avatar image"> 
+                               
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-
-
-            <div class="row">
-                <p class="textdiv1">Have you trained in the NYCI STEAM in Youth Work Maker Project? <a href="" class="textdiv11">Access further resource here ></a></p>
             </div>
         </div>
-    </section>
+            <div class="container">
+            <p class="text-ask">Have you trained in the NYCISTEAM in Youth Work Maker Project? <a href="#" class="text-ask-link">Access further Resources Here ></a></p>
+        </div>
+    </div>
 
-    <!-- Second Div -->
-    <section>
-        <div class="container">
-                    <hs2 class="btitle">Steam Activities</hs2>
-                </div>
-            <hr>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="row mr-2">
-                        
+</section>
 
+
+<section class="my-5">
+    <div class="container">
+        <h2 class="headtitle"><?php echo $currentPathway;?> Activities</h2>
+        <hr>
+    </div>
+
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-md-8">
+                <div class="row">
+                   
 <?php
 //echo sprintf($currentPathway);
+
+
+function gettermImage($pathwayName){
+ $term = get_term_by('name',$pathwayName, 'pathway'); 
+ //var_dump($term);
+ $name = $term->icon_image;
+$imagePath = get_field('icon_image', $term->taxonomy.'_'.$term->term_id);
+return $imagePath;
+}
+
 
 function getactivity($maxNumb, $pathway){
 /*
@@ -209,87 +241,92 @@ if ( $lastposts ) {
 
              //echo $count;   
 ?>
-                        <div class="col box5 mr-2">
-                
-        <h2><a href="<?php the_permalink(); ?>"><?php echo $post->post_title;//echo get_post_meta($post->ID, 'Duration', true); ?></a></h2>
+
+                    <div class="col-md-6 my-2">
+
+                        <div class="card" style="background: #FFFFFF;box-shadow: 0px 3px 5px rgba(25, 70, 93, 0.05);border-radius: 10px;">
+                            <div class="card-header border-0 py-3 d-flex align-items-center my-3" style="background-color: #ffffff;">
+                                <img src="<?php echo gettermImage($currentPathway); ?>" class="rounded-circle align-self-start mr-3" width="50" height="50">
+                                <div>
+                                    <h6 class="intro-steam"><a href="<?php the_permalink(); ?>"><?php echo $post->post_title; ?></a></h6>
+                                </div>
+                            </div>
                         </div>
-
-
+                    </div>
 <?php
         
                 
                  $count++;
-    if($count % 2 == 0) echo '</div> <div class="row mr-2">';
+    if($count % 2 == 0) echo '</div> <div class="col-md-4 my-2">';
     endforeach; 
     wp_reset_postdata();
 }
 
-?>          
-                    <!--    
-                        <div class="col box5">
-aa
-                        </div>
-                    </div>
-                        <div class="row mr-2">
-                        
+?>  
 
-                        <div class="col box5 mr-2">
-bb
-                        </div>
-                        <div class="col box5">
-
-                        </div>
-                        -->
-                    </div>
                 </div>
-
-                <div class="col-md-4 box51">
-<span class="border border-primary"> 
-<img src="<?php echo get_template_directory_uri();  ?>/images/communityContri.png" class="img-responsive" with="10px"  alt="COP">
-</span>
-                </div>
-
             </div>
 
+            <div class="col-md-4 my-2">
+                <div class="card" style="background-color: #E6EEF3;opacity: 0.78;border: 1px solid #CACCCE;box-sizing: border-box;border-radius: 4px;">
+                    <div class="card-body">
+                        <h3 class="text-on-card toc-text">Community Contributor</h3>
+                        <p class="cc-title">Create an activity guide</p>
+                        <p class="cc-text">Become a Community Contributor</p>   
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<section class="my-5">
+    <div class="container">
+        <h2 class="headtitle">Advanced Programme Plans</h2>
+        <hr>
+    </div>
 
-<!-- Third Div -->
-    <section>
-        <div class="container">
-            <h22 class="btitle">Advanced Program Plans</h22>
-            <hr>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="row mr-2">
-                        
-
-                        <div class="col-sm-6 box6">
-
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-md-8">
+                <div class="row no-gutters">
+                    <div class="col-md-5 my-2">
+                        <div class="card appbox1">
+                            <div class="">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/bluebox.svg" class="rounded-circle mx-auto d-block my-2">
+                                
+                            </div>
                         </div>
-                        <div class="col-sm-6 box6a">
+                    </div>
 
+                    <div class="col-md-7 my-2">
+                        <div class="card appbox2">
+                            <div class="card-header border-0 py-3 d-flex align-items-center my-3" style="background: #fff;">
+                                
+                                <div>
+                                    <h4 class="intro-title mb-0" style="color:#9AA5B1;"> <?php echo $currentPathway; ?></h4>
+                                    <h6 class="intro-steam">8 Week Activity Programme Plan</h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4 box61">
-                    
-                </div>
-
             </div>
 
+            <div class="col-md-4 my-2">
+                <div class="card" style="background-color: #E6EEF3;opacity: 0.78;border: 1px solid #CACCCE;box-sizing: border-box;border-radius: 4px; height: 200px;">
+                    <div class="card-body">
+                        <h3 class="text-on-app toc-text-app">new</h3>
+                        <p class="apptext1">CountDown</p>
+                        <p class="apptext2">March 2019</p>
+                        <hr>
+                        <p class="apptext3">New Advanced Pathways</p>   
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-    <!-- End of Third Div -->
-<div class="container">
-<hr>
-</div>
-
+    </div>
+</section>
 
 
 

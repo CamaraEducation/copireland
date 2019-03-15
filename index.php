@@ -1,60 +1,53 @@
 <?php get_header();?>
 
 
-	<section class="hero">
 
-		<?php
+<!--  Hero Section -->
+    <section id="hero">
+        <div class="hero-container">
+
+        <?php
 if ( is_user_logged_in() ) {
    
-
 ?>
 
-		<div class="col-xs-6 col-centered">
-			<span>
-<?php echo get_avatar($current_user->ID, 64); ?>
-</span>
-		</div>
-		<div class="col-xs-6 col-centered" style="padding-left: 12px;">
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
 
-			<p class="profile-name"><?php um_fetch_user( get_current_user_id() );
-				echo um_user('display_name'); // returns the display name of logged-in user
-				?></p>
-			<p class="work-title"><?php global $current_user; echo array_shift($current_user->roles); ?> @ Camara</p>
+                <img src="<?php echo get_avatar_url($current_user->ID); ?>" class="img-responsive" width="125" height="125" alt="COP">
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php  echo array_shift($current_user->roles); ?> @ Camara
 
-		</div>
-		<?php
-		} else {
-    echo 'Welcome, visitor!';
-}
-?>
-	</section>
-	
-<!--- PTHWAY NAVIGATION -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                </p>
+            </div>
+    <?php } else { ?>
 
-			<!-- Tabs -->
-	<div class="container">
-		<div class="row">
-			<div class="steamtabbednav">
-				<div class="tabbednavlinks">
-					
-			
-<?php
-$tax_terms = get_terms( 'activity_pathways', 'orderby=id');
-//var_dump($tax_terms);
-foreach ( $tax_terms as $term ) {
 
-?>
-	
-	<a href=" <?php echo $term->slug; ?>" class="tabbednavlink" role="button" "<?php echo $currentPathway;?>"> <?php echo $term->name; ?> </a>
-<?php
-}
-?>
-	</div>			
-			</div>
-		</div>
-	</div>
-	</nav><!-- End PATH WYA NAGIVATION -->
+            <div class="col-xs-2 col-centered mx-2">
+                <span>
+            <img src="<?php echo gettermImage($currentPathway); ?>" width="55" height="63"> 
+
+            </span>
+            </div>
+            <div class="col-xs-6 col-centered">
+                <p class="name-user"><?php um_fetch_user( get_current_user_id()); ?></p>
+                <p class="txt-pos">
+                    <?php echo $currentPathway; ?>  Activities
+                </p>
+            </div>
+
+
+<?php } ?>
+        </div>
+    
+    </section>
+
+
+
 
 <section>
 		<div class="container">
