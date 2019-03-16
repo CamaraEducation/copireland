@@ -11,7 +11,7 @@ function irelandcop_script_enqueue() {
 	wp_enqueue_style('custombootstrap',get_template_directory_uri().'/css/bootstrap.css',array(),'1.0.0','all');
 
 		wp_enqueue_style('customfont',get_template_directory_uri().'/css/font.css',array(),'1.0.0','all');
-    wp_enqueue_style('customfont',get_template_directory_uri().'/css/irelandcop_2.css',array(),'1.0.0','all');
+    wp_enqueue_style('customfont2',get_template_directory_uri().'/css/irelandcop_2.css',array(),'1.0.0','all');
     
 		
 		//Javascript

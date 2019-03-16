@@ -1,44 +1,27 @@
 <?php
-/**
- *
- * @package CopIreland
- *
- */
-
-//get_header(); 
 get_header();
 ?>
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="<?php echo get_template_directory_uri();  ?>/images/techspacelogo.png" class="img-responsive md-avatar size-2" alt="COP">
+    </div>
+
 <div class="login-form">
 <?php
-// $args = array(
-//     'redirect' => home_url(), 
-//     'id_username' => 'user',
-//     'id_password' => 'pass',
-//    ) 
+$args = array(
+    'redirect' => home_url(), 
+   ) 
 ;?>
-<?php //wp_login_form( $args ); ?>
+<?php wp_login_form( $args ); ?>
 </div>
-
-<div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
-		<?php
-		// Start the loop.
-		while ( have_posts() ) :
-			the_post();
-
-			// Include the page content template.
-			get_template_part( 'content', 'login' );
-
-			if ( comments_open() || get_comments_number() ) {
-				comments_template();
-			}
-
-		endwhile;
-		?>
-
-	</main><!-- .site-main -->
-</div>
- <?php $login  = (isset($_GET['login']) ) ? $_GET['login'] : 0; 
+   <!-- Remind Passowrd -->
+    <div id="formFooter">
+    	 <?php $login  = (isset($_GET['login']) ) ? $_GET['login'] : 0; 
 if ( $login === "failed" ) {
   echo '<p class="login-msg"><strong>ERROR:</strong> Invalid username and/or password.</p>';
 } elseif ( $login === "empty" ) {
@@ -47,5 +30,8 @@ if ( $login === "failed" ) {
   echo '<p class="login-msg"><strong>ERROR:</strong> You are logged out.</p>';
 }
 ?>
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
 
-<?php get_header(); ?>
+  </div>
+</div>
