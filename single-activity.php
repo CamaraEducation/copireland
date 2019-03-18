@@ -159,6 +159,132 @@ echo $posts['user_avatar'];
 							<li class="list-group-item">Dapibus ac facilisis in</li>
 							<li class="list-group-item">Vestibulum at eros</li>
 						</ul>
+					<?php
+						  global $current_user;
+						  get_currentuserinfo();
+						  $postid = get_the_ID();
+						  $username = $current_user->user_login;
+						  $user_id = $current_user->ID;
+						?>
+						<button type="button" class="btn btn-outline-danger">
+						<i class="fa fa-icon"></i>
+						<?php echo $user_id; 
+						echo $postid;
+						?>
+						</button>
+						<div class="card-header">
+							Satisfaction
+						</div>
+						 <div class="btn-group">
+						  <button>Sad</button>&nbsp; &nbsp;
+						  <?php 
+						  $sad = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $sad;?>
+						  <button>Happy</button>&nbsp; &nbsp;
+						  <?php $happy = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $happy;?>
+						  <button>Excited</button>
+							<?php $excited = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $excited;?>
+						</div> 
+						<div class="card-header">
+							LEVEL
+						</div>
+						<div class="btn-group">
+						  <button>Beginner</button>&nbsp; &nbsp;
+						  <?php 
+						  $beginner = $wpdb->get_var( "SELECT sum(level = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $beginner;?>
+						  <button>Intermediate</button>&nbsp; &nbsp;
+						  <?php 
+						  $intermediate = $wpdb->get_var( "SELECT sum(level = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $intermediate;?>
+						  <button>Advanced</button>
+						  <?php 
+						  $advanced = $wpdb->get_var( "SELECT sum(level = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $advanced;?>
+						</div> 
+						<div class="card-header">
+							TIME
+						</div>
+						<div class="btn-group">
+						  <button>< 1 hour</button>&nbsp; &nbsp;
+						  <?php 
+						  $one = $wpdb->get_var( "SELECT sum(time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $one;?>
+						  <button>1 - 2 hours</button>&nbsp; &nbsp;
+						  <?php 
+						  $two = $wpdb->get_var( "SELECT sum(time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $two;?>
+						  <button>>1 hour</button>
+						  <?php 
+						  $three = $wpdb->get_var( "SELECT sum(time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $three;?>
+						</div> 
+						<div class="card-header">
+							AGE GROUP
+						</div>
+						<div class="btn-group">
+						  <button>Beginner</button>&nbsp; &nbsp;
+						  <?php 
+						  $be = $wpdb->get_var( "SELECT sum(age_group = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $be;?>
+						  <button>Intermediate</button>&nbsp; &nbsp;
+						  <?php 
+						  $in = $wpdb->get_var( "SELECT sum(age_group = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $in;?>
+						  <button>Advanced</button>
+						  <?php 
+						  $ad = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							echo $ad;?>
+						</div> 
+						<div>
+							<button onclick="submit_feedback()">Submit Feedback</button> 
+						<script type="text/javascript">
+							
+							function submit_feedback() {
+							 // document.getElementById("field2").value = document.getElementById("field1").value;
+							  global $wpdb;
+							  $wpdb->;insert(
+ 
+								$wpdb->;wp_feedback,
+								 
+								array(
+																
+								'post_id' =>; $postid,
+								 
+								'user_id' =>; $user_id,
+
+								'Satisfaction' =>; 1,
+
+								'level' =>; 2,
+
+								'time' =>; 3,
+								 
+								'age_group' =>; 2
+								 
+								),
+								 
+								array(
+								 
+								'%s',
+								 
+								'%s',
+								 
+								'%s',
+
+								'%s',
+								 
+								'%s',
+
+								'%s'
+								 
+								)
+								 
+								);
+							}
+							
+							</script>
 					</div>
 
 				</div>
