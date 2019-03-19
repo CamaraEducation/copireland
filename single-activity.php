@@ -9,10 +9,6 @@ return $term_single->name; //do something here
 }
 }
 ?>
-    
-
-      
-
 
 <section>
         <?php while ( have_posts() ) : the_post(); ?>
@@ -324,14 +320,14 @@ echo $posts['user_avatar'];
 </div>
 
 <?php 
-
-//if ( comments_open());
-//comments_template();
-
-//endwhile; // end of the loop. ?>
+$wpdb->show_errors(); ?>
 <?php comments_template( '', true ); ?>
-<?php wp_list_comments(); ?>
-<?php comment_form(); ?>
-
+<?php //wp_list_comments(); ?>
+<?php //comment_form(); ?>
+<?php 
+if ( comments_open() || get_comments_number() ) :
+     comments_template();
+ endif;
+?>
 
 <?php get_footer();?>

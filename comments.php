@@ -1,54 +1,47 @@
-<?php
-/**
- * The template for displaying Comments.
- *
- * The area of the page that contains comments and the comment form.
- *
- * @package WordPress
- * @subpackage Cop Ireland
- */
- 
-if ( post_password_required() )
-    return;
-?>
- 
-<div id="comments" class="comments-area">
- 
-    <?php if ( have_comments() ) : ?>
-        <h2 class="comments-title">
-            <?php
-                printf( _nx( 'One thought on "%2$s"', '%1$s thoughts on "%2$s"', get_comments_number(), 'comments title', 'copireland' ),
-                    number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
-            ?>
-        </h2>
- 
+
+<div class="container">
+<h4 class="btitle">
+    <?php
+        printf( _nx( 'One thought on "%2$s"', '%1$s comments on "%2$s"', get_comments_number(), 'comments title', 'copireland' ),
+            number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
+    ?>
+</h4>
+<?php if ( have_comments() ) : ?>
+        <?php
+        //Get only the approved comments 
+        $args = array(
+            'status' => 'approve'
+        );
+         
+        // The comment Query
+        $comments_query = new WP_Comment_Query;
+        $comments = $comments_query->query( $args );
+         
+        // Comment Loop
+        if ( $comments ) {
+            foreach ( $comments as $comment ) {
+                echo '<p>' . $comment->comment_content . '</p>';
+            }
+        } else {
+            echo 'No comments found.';
+        }
+        ?>
         <ol class="comment-list">
             <?php
                 wp_list_comments( array(
                     'style'       => 'ol',
                     'short_ping'  => true,
-                    'avatar_size' => 74,
+                    'avatar_size' => 34,
                 ) );
             ?>
         </ol><!-- .comment-list -->
- 
-        <?php
-            // Are there comments to navigate through?
-            if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
-        ?>
-        <nav class="navigation comment-navigation" role="navigation">
-            <h1 class="screen-reader-text section-heading"><?php _e( 'Comment navigation', 'copireland' ); ?></h1>
-            <div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'copireland' ) ); ?></div>
-            <div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'copireland' ) ); ?></div>
-        </nav><!-- .comment-navigation -->
-        <?php endif; // Check for comment navigation ?>
- 
+        <div class="pagination">
+            <?php paginate_comments_links(); ?>
+        </div>
         <?php if ( ! comments_open() && get_comments_number() ) : ?>
-        <p class="no-comments"><?php _e( 'Comments are closed.' , 'copireland' ); ?></p>
+        <p class="no-comments"><?php _e( 'Comments are closed.' , 'twentythirteen' ); ?></p>
         <?php endif; ?>
- 
-    <?php endif; // have_comments() ?>
- 
-    <?php comment_form(); ?>
- 
-</div><!-- #comments -->
+<?php endif; // have_comments() ?>
+
+<?php comment_form(); ?>
+</div>
