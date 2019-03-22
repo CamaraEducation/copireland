@@ -1,4 +1,8 @@
-
+<?php  
+if (post_password_required() ){
+    return;
+}
+?>
 <div class="container">
 <h4 class="btitle">
     <?php
@@ -14,13 +18,17 @@
         );
          
         // The comment Query
-        $comments_query = new WP_Comment_Query;
-        $comments = $comments_query->query( $args );
-         
+        $postid = get_the_ID();
+        //$comments_query = new WP_Comment_Query;
+        //$comments = $comments_query->query( $args );
+        $comments = get_comments(array(
+            'post_id' => $postid,
+            'status' => 'approve' //Change this to the type of comments to be displayed
+        ));
         // Comment Loop
         if ( $comments ) {
             foreach ( $comments as $comment ) {
-                echo '<p>' . $comment->comment_content . '</p>';
+               // echo '<p>' . $comment->comment_content . '</p>';
             }
         } else {
             echo 'No comments found.';
