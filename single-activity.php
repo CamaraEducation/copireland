@@ -308,7 +308,106 @@ echo $posts['user_avatar'];
 		</div>
 	</section>
 
+<div class="container">
 
+			<div class="row">
+				<div class="col-md-8">
+					<div class="col-md-10 aguidebackground">
+
+				<form method="post" id="satsfaction">
+					<form action='' method='post'>
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridsad" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidsad" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='1'>Sad</button>
+					</form>
+					<div class="messageDiv1"></div>
+				</form>
+	<script>
+	jQuery(function(){
+		jQuery('#satsfaction').submit(function(event){
+			event.preventDefault();
+
+			jQuery.ajax({
+				dataType : "json",
+				type:"Post",
+				data : jQuery('#satsfaction').serialize(),
+				url:"../admin-ajax.php",
+				success:function(data)
+				{
+				jQuery('.messageDiv1').html(data.message);
+
+				if(data.status == 1){
+					jQuery('#satsfaction').trigger('reset');
+				}
+				//	alert('Form Successfully Submit');
+				}
+			});
+		});
+	});
+</script>
+<form method="post" id="satsfaction1">
+					<form action='' method='post'>
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridha" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidha" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='2'>Happy</button>
+					</form>
+					<div class="messageDiv2"></div>
+				</form>
+	<script>
+	jQuery(function(){
+		jQuery('#satsfaction1').submit(function(event){
+			event.preventDefault();
+
+			jQuery.ajax({
+				dataType : "json",
+				type:"Post",
+				data : jQuery('#satsfaction1').serialize(),
+				url:"../admin-ajax.php",
+				success:function(data)
+				{
+				jQuery('.messageDiv2').html(data.message);
+
+				if(data.status == 1){
+					jQuery('#satsfaction1').trigger('reset');
+				}
+				//	alert('Form Successfully Submit');
+				}
+			});
+		});
+	});
+</script>
+
+<form method="post" id="satsfaction2">
+					<form action='' method='post'>
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridex" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidex" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='3'>excited</button>
+					</form>
+					<div class="messageDiv3"></div>
+				</form>
+	<script>
+	jQuery(function(){
+		jQuery('#satsfaction2').submit(function(event){
+			event.preventDefault();
+
+			jQuery.ajax({
+				dataType : "json",
+				type:"Post",
+				data : jQuery('#satsfaction2').serialize(),
+				url:"../admin-ajax.php",
+				success:function(data)
+				{
+				jQuery('.messageDiv3').html(data.message);
+
+				if(data.status == 1){
+					jQuery('#satsfaction2').trigger('reset');
+				}
+				//	alert('Form Successfully Submit');
+				}
+			});
+		});
+	});
+</script>
 
 
 <!-------------END OF CONENT LOOP --->
