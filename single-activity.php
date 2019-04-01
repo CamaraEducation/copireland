@@ -1,7 +1,7 @@
 <?php get_header();?>
 
-
 <?php
+// require_once('comments.php');
 function getPostTerms($id,$tax){
 $term_list = wp_get_post_terms($id, $tax, array("fields" => "all"));
 foreach($term_list as $term_single) {
@@ -9,7 +9,6 @@ return $term_single->name; //do something here
 }
 }
 ?>
-
 <section>
         <?php while ( have_posts() ) : the_post(); ?>
 
@@ -123,7 +122,6 @@ echo $posts['user_avatar'];
 
 
 	<?php echo the_content();?>
-
 					
 </div>
 
@@ -155,12 +153,13 @@ echo $posts['user_avatar'];
 							<li class="list-group-item">Dapibus ac facilisis in</li>
 							<li class="list-group-item">Vestibulum at eros</li>
 						</ul>
-					<?php
+						
+						<?php
 						  global $current_user;
 						  get_currentuserinfo();
 						  $postid = get_the_ID();
 						  $username = $current_user->user_login;
-						  $user_id = $current_user->ID;
+						  $userid = $current_user->ID;
 						?>
 						<button type="button" class="btn btn-outline-danger">
 						<i class="fa fa-icon"></i>
@@ -172,14 +171,101 @@ echo $posts['user_avatar'];
 							Satisfaction
 						</div>
 						 <div class="btn-group">
-						  <button>Sad</button>&nbsp; &nbsp;
+						 	<?php $test = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+						 	?>
+						  <form method="post" id="satsfaction">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridsad" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidsad" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='1'>Sad</button>
+					<div class="messageDiv1"></div>
+				</form>
+					<script>
+					jQuery(function(){
+						jQuery('#satsfaction').submit(function(event){
+							event.preventDefault();
+
+							jQuery.ajax({
+								dataType : "json",
+								type:"Post",
+								data : jQuery('#satsfaction').serialize(),
+								url:"../admin-ajax.php",
+								success:function(data)
+								{
+								jQuery('.messageDiv1').html(data.message);
+
+								if(data.status == 1){
+									jQuery('#satsfaction').trigger('reset');
+								}
+								//	alert('Form Successfully Submit');
+								}
+							});
+						});
+					});
+				</script>&nbsp; &nbsp;
 						  <?php 
 						  $sad = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $sad;?>
-						  <button>Happy</button>&nbsp; &nbsp;
+						  <form method="post" id="satsfaction1">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridha" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidha" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='2'>Happy</button>
+					<div class="messageDiv2"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#satsfaction1').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#satsfaction1').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv2').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#satsfaction1').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php $happy = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $happy;?>
-						  <button>Excited</button>
+
+						  <form method="post" id="satsfaction2">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridex" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidex" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='3'>excited</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#satsfaction2').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#satsfaction2').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#satsfaction2').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>
 							<?php $excited = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $excited;?>
 						</div> 
@@ -187,15 +273,99 @@ echo $posts['user_avatar'];
 							LEVEL
 						</div>
 						<div class="btn-group">
-						  <button>Beginner</button>&nbsp; &nbsp;
+						<form method="post" id="level">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridbg" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidbg" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='1'>Beginner</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#level').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#level').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#level').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php 
 						  $beginner = $wpdb->get_var( "SELECT sum(level = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $beginner;?>
-						  <button>Intermediate</button>&nbsp; &nbsp;
+						  	<form method="post" id="level1">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridint" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidint" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='2'>Intermediate</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#level1').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#level1').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#level1').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php 
 						  $intermediate = $wpdb->get_var( "SELECT sum(level = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $intermediate;?>
-						  <button>Advanced</button>
+						  		  	<form method="post" id="level2">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridad" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidad" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='3'>Advanced</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#level2').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#level2').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#level2').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>
 						  <?php 
 						  $advanced = $wpdb->get_var( "SELECT sum(level = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $advanced;?>
@@ -234,55 +404,8 @@ echo $posts['user_avatar'];
 						  $ad = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $ad;?>
 						</div> 
-						<div>
-							<button onclick="submit_feedback()">Submit Feedback</button> 
-						<script type="text/javascript">
-							
-							function submit_feedback() {
-							 // document.getElementById("field2").value = document.getElementById("field1").value;
-							  global $wpdb;
-							  $wpdb->;insert(
- 
-								$wpdb->;wp_feedback,
-								 
-								array(
-																
-								'post_id' =>; $postid,
-								 
-								'user_id' =>; $user_id,
-
-								'Satisfaction' =>; 1,
-
-								'level' =>; 2,
-
-								'time' =>; 3,
-								 
-								'age_group' =>; 2
-								 
-								),
-								 
-								array(
-								 
-								'%s',
-								 
-								'%s',
-								 
-								'%s',
-
-								'%s',
-								 
-								'%s',
-
-								'%s'
-								 
-								)
-								 
-								);
-							}
-							
-							</script>
 					</div>
-
+					
 				</div>
 			</div>
 		</div>
@@ -302,11 +425,24 @@ echo $posts['user_avatar'];
 				</div>
 
 				<div class="col-md-4">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae incidunt natus debitis consequuntur, soluta animi quaerat optio delectus officia doloremque nostrum libero nihil dignissimos, voluptate ullam quibusdam maxime. In, alias.	
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae incidunt natus debitis consequuntur, soluta animi quaerat optio delectus officia doloremque nostrum libero nihil dignissimos, voluptate ullam quibusdam maxime. In, alias.
 				</div>
 			</div>
 		</div>
 	</section>
+
+<!-------------END OF CONENT LOOP --->
+
+<?php endwhile; // end of the loop. ?>
+
+<div class="container">
+<hr><h4 class="btitle">
+    <?php
+        printf( _nx( 'One thought on "%2$s"', '%1$s comments on "%2$s"', get_comments_number(), 'comments title', 'copireland' ),
+            number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
+     ?>
+</h4>
+</div>
 
 <div class="container">
 
@@ -314,119 +450,29 @@ echo $posts['user_avatar'];
 				<div class="col-md-8">
 					<div class="col-md-10 aguidebackground">
 
-				<form method="post" id="satsfaction">
-					<form action='' method='post'>
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridsad" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidsad" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='1'>Sad</button>
-					</form>
-					<div class="messageDiv1"></div>
-				</form>
-	<script>
-	jQuery(function(){
-		jQuery('#satsfaction').submit(function(event){
-			event.preventDefault();
-
-			jQuery.ajax({
-				dataType : "json",
-				type:"Post",
-				data : jQuery('#satsfaction').serialize(),
-				url:"../admin-ajax.php",
-				success:function(data)
-				{
-				jQuery('.messageDiv1').html(data.message);
-
-				if(data.status == 1){
-					jQuery('#satsfaction').trigger('reset');
-				}
-				//	alert('Form Successfully Submit');
-				}
-			});
-		});
-	});
-</script>
-<form method="post" id="satsfaction1">
-					<form action='' method='post'>
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridha" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidha" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='2'>Happy</button>
-					</form>
-					<div class="messageDiv2"></div>
-				</form>
-	<script>
-	jQuery(function(){
-		jQuery('#satsfaction1').submit(function(event){
-			event.preventDefault();
-
-			jQuery.ajax({
-				dataType : "json",
-				type:"Post",
-				data : jQuery('#satsfaction1').serialize(),
-				url:"../admin-ajax.php",
-				success:function(data)
-				{
-				jQuery('.messageDiv2').html(data.message);
-
-				if(data.status == 1){
-					jQuery('#satsfaction1').trigger('reset');
-				}
-				//	alert('Form Successfully Submit');
-				}
-			});
-		});
-	});
-</script>
-
-<form method="post" id="satsfaction2">
-					<form action='' method='post'>
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridex" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidex" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='3'>excited</button>
-					</form>
-					<div class="messageDiv3"></div>
-				</form>
-	<script>
-	jQuery(function(){
-		jQuery('#satsfaction2').submit(function(event){
-			event.preventDefault();
-
-			jQuery.ajax({
-				dataType : "json",
-				type:"Post",
-				data : jQuery('#satsfaction2').serialize(),
-				url:"../admin-ajax.php",
-				success:function(data)
-				{
-				jQuery('.messageDiv3').html(data.message);
-
-				if(data.status == 1){
-					jQuery('#satsfaction2').trigger('reset');
-				}
-				//	alert('Form Successfully Submit');
-				}
-			});
-		});
-	});
-</script>
+				
 
 
-<!-------------END OF CONENT LOOP --->
 
-<?php endwhile; // end of the loop. ?>
 
-<div class="container">
-<hr>
-</div>
 
 <?php 
 $wpdb->show_errors(); ?>
-<?php comments_template( '', true ); ?>
+<?php comments_template(); ?>
+<?php //comments_template('', true); ?>
+
 <?php //wp_list_comments(); ?>
-<?php //comment_form(); ?>
 <?php 
-if ( comments_open() || get_comments_number() ) :
-     comments_template();
- endif;
+// if ( comments_open() || get_comments_number() ) :
+//     comments_template();
+//  endif;
+// if (comments_open()):
+// 	comments_template();
+// endif
 ?>
+</div>
+</div>
+</div>
+</div>
 
 <?php get_footer();?>
