@@ -509,6 +509,399 @@ if (isset($_POST['useridad'])){
   die;
 }
 
+if (isset($_POST['useridon'])){
+  global$wpdb;
+  $uit = $_POST['useridon'];
+  $pit = $_POST['postidon'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uit,
+    'post_id' => $pit,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 1,
+    'age_group' => 0
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $pit " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu > 1 || $valu == 0)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =1 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==1)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =4 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
+
+}
+if (isset($_POST['useridtw'])){
+  global$wpdb;
+  $uit = $_POST['useridtw'];
+  $pit = $_POST['postidtw'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uit,
+    'post_id' => $pit,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 2,
+    'age_group' => 0
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $pit " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu == 0 || $valu == 1 || $valu == 3 || $valu == 4)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =2 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==2)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =4 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
+
+}
+if (isset($_POST['useridth'])){
+  global$wpdb;
+  $uit = $_POST['useridth'];
+  $pit = $_POST['postidth'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uit."' && post_id = '".$pit."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uit,
+    'post_id' => $pit,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 3,
+    'age_group' => 0
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $pit " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu == 0 || $valu == 1 || $valu == 2 || $valu == 4)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =3 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==3)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET time =4 WHERE user_id=$uit && post_id = $pit"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
+}
+if (isset($_POST['useridan'])){
+  global$wpdb;
+  $uig = $_POST['useridan'];
+  $pig = $_POST['postidan'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uig,
+    'post_id' => $pig,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 0,
+    'age_group' => 1
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(age_group = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $pig " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu > 1 || $valu == 0)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =1 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==1)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =4 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
+
+}
+if (isset($_POST['useridhu'])){
+  global$wpdb;
+  $uig = $_POST['useridhu'];
+  $pig = $_POST['postidhu'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uig,
+    'post_id' => $pig,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 0,
+    'age_group' => 2
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(age_group = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $pig " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu == 0 || $valu == 1 || $valu == 3 || $valu == 4)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =2 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==2)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =4 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
+
+}
+if (isset($_POST['useridso'])){
+  global$wpdb;
+  $uig = $_POST['useridso'];
+  $pig = $_POST['postidso'];
+
+  //$ad = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$ui."' && post_id = '".$pi."'" );
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$uig."' && post_id = '".$pig."'" );
+
+   if(empty($row))
+   {
+      $level_array = array(
+
+    'user_id' => $uig,
+    'post_id' => $pig,
+    'satsfaction' => 0,
+    'level' => 0,
+    'time' => 0,
+    'age_group' => 3
+      
+    );
+
+  $table_name = 'wp_feedback';
+  $sad = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $pig " );
+            
+
+  $rowResult = $wpdb->insert($table_name, $level_array, $format=NULL);
+
+  if($rowResult == 1){
+   // echo json_encode(array('message'=>'<h3>Successfull<h3>', 'status'=>1)) ;  
+  }else{
+   // echo json_encode(array('message'=>'<h3>Not Success<h3>', 'status'=>0)) ;  
+  }
+
+   }elseif($valu == 0 || $valu == 1 || $valu == 2 || $valu == 4)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =3 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+     // echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }elseif($valu==3)
+   {
+    
+    $table_name = 'wp_feedback';
+
+    //$rowResultt = $wpdb->update($table_name, array( 'satsfaction' => 0 ), $format=NULL);
+    $rowResultt = $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group =4 WHERE user_id=$uig && post_id = $pig"));
+    if($rowResultt == 1){
+    //  echo json_encode(array('message'=>'<h3>Updated<h3>', 'status'=>1)) ;  
+    }else{
+     // echo json_encode(array('message'=>'<h3>Not Updated<h3>', 'status'=>0)) ;  
+    }
+
+   }
+   exit();
+  
+  die;
 
 if (isset($_POST['user_id'])){
   global$wpdb;

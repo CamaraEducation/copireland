@@ -374,15 +374,100 @@ echo $posts['user_avatar'];
 							TIME
 						</div>
 						<div class="btn-group">
-						  <button>< 1 hour</button>&nbsp; &nbsp;
+						  <form method="post" id="time">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridon" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidon" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='1'>< 1 hour</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#time').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#time').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#time').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>
+						  &nbsp; &nbsp;
 						  <?php 
 						  $one = $wpdb->get_var( "SELECT sum(time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $one;?>
-						  <button>1 - 2 hours</button>&nbsp; &nbsp;
+							<form method="post" id="time1">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridtw" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidtw" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='2'>1 - 2 hours</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#time1').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#time1').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#time1').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php 
 						  $two = $wpdb->get_var( "SELECT sum(time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $two;?>
-						  <button>>1 hour</button>
+						  <form method="post" id="time2">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridth" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidth" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='3'>>2 hours</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#time2').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#time2').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#time2').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>
 						  <?php 
 						  $three = $wpdb->get_var( "SELECT sum(time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $three;?>
@@ -391,15 +476,99 @@ echo $posts['user_avatar'];
 							AGE GROUP
 						</div>
 						<div class="btn-group">
-						  <button>Beginner</button>&nbsp; &nbsp;
+						  <form method="post" id="age">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridan" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidan" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='1'>Beginner</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#age').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#age').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#age').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php 
 						  $be = $wpdb->get_var( "SELECT sum(age_group = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $be;?>
-						  <button>Intermediate</button>&nbsp; &nbsp;
+						  <form method="post" id="age1">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridhu" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidhu" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='2'>Intermediate</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#age1').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#age1').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#age1').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>&nbsp; &nbsp;
 						  <?php 
 						  $in = $wpdb->get_var( "SELECT sum(age_group = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $in;?>
-						  <button>Advanced</button>
+						  <form method="post" id="age2">
+						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridso" value="<?php echo $userid; ?>"></br></div>
+						<div class="form-group"><input type="hidden" class = "form-control" name="postidso" value="<?php echo $postid; ?>"></br></div>
+					  <button name='submit' value='3'>Advanced</button>
+					<div class="messageDiv3"></div>
+				</form>
+				<script>
+				jQuery(function(){
+					jQuery('#age2').submit(function(event){
+						event.preventDefault();
+
+						jQuery.ajax({
+							dataType : "json",
+							type:"Post",
+							data : jQuery('#age2').serialize(),
+							url:"../admin-ajax.php",
+							success:function(data)
+							{
+							jQuery('.messageDiv3').html(data.message);
+
+							if(data.status == 1){
+								jQuery('#age2').trigger('reset');
+							}
+							//	alert('Form Successfully Submit');
+							}
+						});
+					});
+				});
+			</script>
 						  <?php 
 						  $ad = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
 							echo $ad;?>
