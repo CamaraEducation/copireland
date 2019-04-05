@@ -38,6 +38,9 @@ if ( ! empty( $pathways ) && ! is_wp_error( $pathways ) ){
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 		<meta name="viewport" content="width=device-width", initial-sacle="1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<title>Techspace CoP </title>
 		<?php wp_head() ?>
 	</head>

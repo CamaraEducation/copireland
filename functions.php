@@ -903,27 +903,271 @@ if (isset($_POST['useridso'])){
   
   die;
 
-if (isset($_POST['user_id'])){
-  global$wpdb;
-  $data_array = array(
-
-    'user_id' => $_POST['user_id'],
-    'post_id' => $_POST['post_id'],
-    'satsfaction' => 1,
-    'level' => 1,
-    'time' => 1,
-    'age_group' => 1
-      
-  );
-  $table_name = 'wp_feedback';
-
-  $rowResult = $wpdb->insert($table_name, $data_array, $format=NULL); 
-
-  if($rowResult == 1){
-    echo json_encode(array('message'=>'<h1>Successfull<h1>', 'status'=>1)) ;  
+///////// If the user is Sad/////////////////
+function userDisliked($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT satsfaction FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 1) {
+    return true;
   }else{
-    echo json_encode(array('message'=>'<h1>Not Success<h1>', 'status'=>0)) ;  
+    return false;
   }
-  die;
+}
+function getDislikes($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Sad/////////////////
+///////// If the user is Happy/////////////////
+function userLiked($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT satsfaction FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 2) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getLikes($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Happy/////////////////
+///////// If the user is Excited/////////////////
+function userExcited($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT satsfaction FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 3) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getExcites($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Excited/////////////////
+if (isset($_POST['action'])) {
+  $action = $_POST['action'];
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+  $table_name = 'wp_feedback';
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+  $ml = $wpdb->get_var( "SELECT satsfaction FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
 
+  switch ($action) {
+    case 'dislike':
+      if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 1,
+      'level' => 0,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'undislike':
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+      break;
+    case 'like':
+         if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 2,
+      'level' => 0,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'unlike':
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        break;
+    case 'excited':
+          if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 3,
+      'level' => 0,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+      break;
+    case 'unexcited':
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+    default:
+      break;
+  }
+  echo getRating($post_id);
+  exit(0);
+}
+function getRating($id)
+{
+  global $wpdb;
+  $rating = array();
+  $sad = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $happy = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $excite = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+
+  $rating = [
+    'likes' => $happy[0],
+    'dislikes' => $sad[0],
+    'excites' => $excite[0]
+  ];
+  return json_encode($rating);
+}
+//////////////////////////////////////////////LEVEL///////////////////////////////////////////////////////////
+function userBiggner($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT level FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 1) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getBiggner($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(level = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Sad/////////////////
+///////// If the user is Happy/////////////////
+function userInter($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT level FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 2) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getInter($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(level = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Happy/////////////////
+///////// If the user is Excited/////////////////
+function userAdvance($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT level FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 3) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getAdvance($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(level = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu);
+}
+///////// End of If the user is Excited/////////////////
+if (isset($_POST['levelaction'])) {
+  $action = $_POST['levelaction'];
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+  $table_name = 'wp_feedback';
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+  $ml = $wpdb->get_var( "SELECT level FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+
+  switch ($levelaction) {
+    case 'biggner':
+      if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 1,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'unbiggner':
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+      break;
+    case 'inter':
+         if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 2,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'uninter':
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        break;
+    case 'advance':
+          if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 3,
+      'time' => 0,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }elseif($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+      break;
+    case 'unadvance':
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+    default:
+      break;
+  }
+  echo getRatingLevel($post_id);
+  //exit(0);
+}
+function getRatingLevel($id)
+{
+  global $wpdb;
+  $rating = array();
+  $biggner = $wpdb->get_var( "SELECT sum(level = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $inter = $wpdb->get_var( "SELECT sum(level = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $advance = $wpdb->get_var( "SELECT sum(level = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+
+  $rating = [
+    'biggners' => $biggner[0],
+    'inters' => $inter[0],
+    'advances' => $advance[0]
+  ];
+  return json_encode($rating);
 }

@@ -171,104 +171,165 @@ echo $posts['user_avatar'];
 							Satisfaction
 						</div>
 						 <div class="btn-group">
-						 	<?php $test = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
-						 	?>
-						  <form method="post" id="satsfaction">
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridsad" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidsad" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='1'>Sad</button>
-					<div class="messageDiv1"></div>
-				</form>
-					<script>
-					jQuery(function(){
-						jQuery('#satsfaction').submit(function(event){
-							event.preventDefault();
+						 	<div class="btn-group">
+						 	<?php
+						 	$valu = $wpdb->get_var( "SELECT satsfaction FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+							$sad = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							$happy = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+							$excited = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
+								 ?>
+								 <!-- if user sad post, style button differently -->
+							<i style="font-size: 2em; color: Red"<?php if (userDisliked($userid, $postid)): ?>
+					   			class="fas fa-frown dislike-btn" 
+					          <?php else: ?>
+					            class="far fa-frown dislike-btn"
+					          <?php endif ?>
+					          data-userid="<?php echo $userid ?>" data-postid="<?php echo $postid ?>"></i>
+					          <span class="dislikes"><?php echo $sad; ?></span>
 
-							jQuery.ajax({
-								dataType : "json",
-								type:"Post",
-								data : jQuery('#satsfaction').serialize(),
-								url:"../admin-ajax.php",
-								success:function(data)
-								{
-								jQuery('.messageDiv1').html(data.message);
+					          &nbsp;&nbsp;&nbsp;&nbsp;
+					          <i style="font-size: 2em; color: Orange"<?php if (userLiked($userid, $postid)): ?>
+					      		  class="fas fa-meh like-btn" 
+					      	  <?php else: ?>
+					      		  class="far fa-meh like-btn"
+					      	  <?php endif ?>
+					      	 data-userid="<?php echo $userid ?>" data-postid="<?php echo $postid ?>"></i>
+					      	<span class="likes"><?php echo $happy; ?></span>
+					          &nbsp;&nbsp;&nbsp;&nbsp;
 
-								if(data.status == 1){
-									jQuery('#satsfaction').trigger('reset');
-								}
-								//	alert('Form Successfully Submit');
-								}
-							});
-						});
-					});
-				</script>&nbsp; &nbsp;
-						  <?php 
-						  $sad = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
-							echo $sad;?>
-						  <form method="post" id="satsfaction1">
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridha" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidha" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='2'>Happy</button>
-					<div class="messageDiv2"></div>
-				</form>
-				<script>
-				jQuery(function(){
-					jQuery('#satsfaction1').submit(function(event){
-						event.preventDefault();
-
-						jQuery.ajax({
-							dataType : "json",
-							type:"Post",
-							data : jQuery('#satsfaction1').serialize(),
-							url:"../admin-ajax.php",
-							success:function(data)
-							{
-							jQuery('.messageDiv2').html(data.message);
-
-							if(data.status == 1){
-								jQuery('#satsfaction1').trigger('reset');
-							}
-							//	alert('Form Successfully Submit');
-							}
-						});
-					});
-				});
-			</script>&nbsp; &nbsp;
-						  <?php $happy = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
-							echo $happy;?>
-
-						  <form method="post" id="satsfaction2">
-						</br><div class="form-group"><input type="hidden" class = "form-control" name="useridex" value="<?php echo $userid; ?>"></br></div>
-						<div class="form-group"><input type="hidden" class = "form-control" name="postidex" value="<?php echo $postid; ?>"></br></div>
-					  <button name='submit' value='3'>excited</button>
-					<div class="messageDiv3"></div>
-				</form>
-				<script>
-				jQuery(function(){
-					jQuery('#satsfaction2').submit(function(event){
-						event.preventDefault();
-
-						jQuery.ajax({
-							dataType : "json",
-							type:"Post",
-							data : jQuery('#satsfaction2').serialize(),
-							url:"../admin-ajax.php",
-							success:function(data)
-							{
-							jQuery('.messageDiv3').html(data.message);
-
-							if(data.status == 1){
-								jQuery('#satsfaction2').trigger('reset');
-							}
-							//	alert('Form Successfully Submit');
-							}
-						});
-					});
-				});
-			</script>
-							<?php $excited = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = $postid " );
-							echo $excited;?>
+					          <i style="font-size: 2em; color: Green"<?php if (userExcited($userid, $postid)): ?>
+					            class="fas fa-smile excite-btn"
+					          <?php else: ?>
+					            class="far fa-smile excite-btn"
+					          <?php endif ?>
+					          data-userid="<?php echo $userid ?>" data-postid="<?php echo $postid ?>"></i>
+							<span class="excites"><?php echo $excited; ?></span>
 						</div> 
+
+						<?php /// o = far fas ?>
+						<script>
+							$(document).ready(function(){
+								// if the user clicks on the dislike button ...
+								$('.dislike-btn').on('click', function(){
+								  var user_id = $(this).data('userid');
+								  var post_id = $(this).data('postid');
+								  //alert(post_id + user_id);
+								  $clicked_btn = $(this);
+								  if ($clicked_btn.hasClass('far')) {
+								  	action = 'dislike';
+								  	//alert(post_id + user_id);
+								  } else if($clicked_btn.hasClass('fas')){
+								  	action = 'undislike';
+								  }
+								  $.ajax({
+								  	//url: 'single-activity.php',
+								  	type: 'post',
+								  	data: {
+								  		'action': action,
+								  		'post_id': post_id,
+								  		'user_id': user_id
+								  	},
+								  	success: function(data){
+								  		res = JSON.parse(data);
+								  		if (action == "dislike") {
+								  			$clicked_btn.removeClass('far');
+								  			$clicked_btn.addClass('fas');
+								  		} else if(action == "undislike") {
+								  			$clicked_btn.removeClass('fas');
+								  			$clicked_btn.addClass('far');
+								  		}
+								  		// display the number of likes and dislikes
+								  		$clicked_btn.siblings('span.likes').text(res.likes);
+								  		$clicked_btn.siblings('span.dislikes').text(res.dislikes);
+								      	$clicked_btn.siblings('span.excites').text(res.excites);
+
+								  		// change button styling of the other button if user is reacting the second time to post
+								  		$clicked_btn.siblings('i.fa-meh').removeClass('fas fa-meh').addClass('far fa-meh');
+								      	$clicked_btn.siblings('i.fa-smile').removeClass('fas fa-smile').addClass('far fa-smile');
+								  	}
+								  });
+								});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+								$('.like-btn').on('click', function(){
+									  var user_id = $(this).data('userid');
+								  		var post_id = $(this).data('postid');
+									  $clicked_btn = $(this);
+									  if ($clicked_btn.hasClass('far')) {
+									  	action = 'like';
+									  } else if($clicked_btn.hasClass('fas')){
+									  	action = 'unlike';
+									  }
+									  $.ajax({
+									  	//url: 'index.php',
+									  	type: 'post',
+									  	data: {
+									  		'action': action,
+									  		'post_id': post_id,
+								  			'user_id': user_id
+									  	},
+									  	success: function(data){
+									  		res = JSON.parse(data);
+									  		if (action == "like") {
+									  			$clicked_btn.removeClass('far');
+									  			$clicked_btn.addClass('fas');
+									  		} else if(action == "unlike") {
+									  			$clicked_btn.removeClass('fas');
+									  			$clicked_btn.addClass('far');
+									  		}
+									  		// display the number of likes and dislikes
+									  		$clicked_btn.siblings('span.likes').text(res.likes);
+									  		$clicked_btn.siblings('span.dislikes').text(res.dislikes);
+									      $clicked_btn.siblings('span.excites').text(res.excites);
+
+									  		// change button styling of the other button if user is reacting the second time to post
+									  		$clicked_btn.siblings('i.fa-frown').removeClass('fas').addClass('far');
+									      $clicked_btn.siblings('i.fa-smile').removeClass('fas').addClass('far');
+									  	}
+									  });
+
+									});
+//////////////////////////////////////////////////////////////////////////////////////////////////
+								$('.excite-btn').on('click', function(){
+									  var user_id = $(this).data('userid');
+								  		var post_id = $(this).data('postid');
+									  $clicked_btn = $(this);
+									  if ($clicked_btn.hasClass('far')) {
+									    action = 'excited';
+									  } else if($clicked_btn.hasClass('fas')){
+									    action = 'unexcited';
+									  }
+									  $.ajax({
+									    //url: 'index.php',
+									    type: 'post',
+									    data: {
+									      'action': action,
+									      'post_id': post_id,
+								  			'user_id': user_id
+									    },
+									    success: function(data){
+									      res = JSON.parse(data);
+									      if (action == "excited") {
+									        $clicked_btn.removeClass('far');
+									        $clicked_btn.addClass('fas');
+									      } else if(action == "unexcited") {
+									        $clicked_btn.removeClass('fas');
+									        $clicked_btn.addClass('far');
+									      }
+									      // display the number of likes and dislikes
+									      $clicked_btn.siblings('span.likes').text(res.likes);
+									      $clicked_btn.siblings('span.dislikes').text(res.dislikes);
+									      $clicked_btn.siblings('span.excites').text(res.excites);
+
+									      // change button styling of the other button if user is reacting the second time to post
+									      $clicked_btn.siblings('i.fa-frown').removeClass('fas').addClass('far');
+									      $clicked_btn.siblings('i.fa-meh').removeClass('fas').addClass('far');
+									    }
+									  });
+
+									});
+							});
+						</script>
 						<div class="card-header">
 							LEVEL
 						</div>
