@@ -902,6 +902,7 @@ if (isset($_POST['useridso'])){
    exit();
   
   die;
+}
 
 ///////// If the user is Sad/////////////////
 function userDisliked($userid, $postid)
@@ -918,7 +919,7 @@ function getDislikes($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(satsfaction = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Sad/////////////////
 ///////// If the user is Happy/////////////////
@@ -936,7 +937,7 @@ function getLikes($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(satsfaction = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Happy/////////////////
 ///////// If the user is Excited/////////////////
@@ -954,7 +955,7 @@ function getExcites($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(satsfaction = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Excited/////////////////
 if (isset($_POST['action'])) {
@@ -973,15 +974,15 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 1,
       'level' => 0,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 2 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 1 WHERE user_id=%d && post_id = %s", $user_id, $post_id ));
         }
          break;
     case 'undislike':
-           $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
       break;
     case 'like':
          if (empty($row)){
@@ -990,15 +991,15 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 2,
       'level' => 0,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 1 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 2 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         }
          break;
     case 'unlike':
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         break;
     case 'excited':
           if (empty($row)){
@@ -1007,15 +1008,15 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 3,
       'level' => 0,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 1 || $ml == 2){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 3 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         }
       break;
     case 'unexcited':
-          $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=$user_id && post_id = $post_id"));
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET satsfaction = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
     default:
       break;
   }
@@ -1037,7 +1038,8 @@ function getRating($id)
   ];
   return json_encode($rating);
 }
-//////////////////////////////////////////////LEVEL///////////////////////////////////////////////////////////
+////////////////////////////////////////////// END OF SATSFACTION ///////////////////////////////////////////////////////////
+////////////////////////////////////////////// LEVEL ///////////////////////////////////////////////////////////
 function userBiggner($userid, $postid)
 {
   global $wpdb;
@@ -1052,7 +1054,7 @@ function getBiggner($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(level = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Sad/////////////////
 ///////// If the user is Happy/////////////////
@@ -1070,7 +1072,7 @@ function getInter($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(level = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Happy/////////////////
 ///////// If the user is Excited/////////////////
@@ -1088,11 +1090,11 @@ function getAdvance($postid)
 {
   global $wpdb;
   $valu = $wpdb->get_var( "SELECT sum(level = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
-  return json_encode($valu);
+  return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Excited/////////////////
 if (isset($_POST['levelaction'])) {
-  $action = $_POST['levelaction'];
+  $levelaction = $_POST['levelaction'];
   $post_id = $_POST['post_id'];
   $user_id = $_POST['user_id'];
   $table_name = 'wp_feedback';
@@ -1107,15 +1109,15 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 1,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 2 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 1 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         }
          break;
     case 'unbiggner':
-           $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
       break;
     case 'inter':
          if (empty($row)){
@@ -1124,15 +1126,15 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 2,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 1 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 2 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         }
          break;
     case 'uninter':
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         break;
     case 'advance':
           if (empty($row)){
@@ -1141,21 +1143,23 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 3,
-      'time' => 0,
+      'taken_time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
-        }elseif($ml == 0 || $ml == 1 || $ml == 2){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }else if($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 3 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
         }
       break;
     case 'unadvance':
-          $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=$user_id && post_id = $post_id"));
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET level = 0 WHERE user_id=%d && post_id = %s", $user_id, $post_id));
     default:
       break;
   }
+
   echo getRatingLevel($post_id);
-  //exit(0);
+  exit(0);
 }
+
 function getRatingLevel($id)
 {
   global $wpdb;
@@ -1168,6 +1172,278 @@ function getRatingLevel($id)
     'biggners' => $biggner[0],
     'inters' => $inter[0],
     'advances' => $advance[0]
+  ];
+  return json_encode($rating);
+}
+//////////////////////////////////////END OF LEVEL/////////////////////////////////////////////
+//////////////////////////////////////TIME/////////////////////////////////////////////
+
+function userLessOne($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 1) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getLessOne($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(taken_time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Sad/////////////////
+///////// If the user is Happy/////////////////
+function userOneToTwo($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 2) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getOneToTwo($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(taken_time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Happy/////////////////
+///////// If the user is Excited/////////////////
+function userMoreTwo($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 3) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getMoreTwo($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(taken_time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Excited/////////////////
+if (isset($_POST['timeaction'])) {
+  $timeaction = $_POST['timeaction'];
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+  $table_name = 'wp_feedback';
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+  $ml = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+
+  switch ($timeaction) {
+    case 'biggner':
+      if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 1,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'unbiggner':
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+      break;
+    case 'inter':
+         if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 2,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'uninter':
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        break;
+    case 'advance':
+          if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 3,
+      'age_group' => 0 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+      break;
+    case 'unadvance':
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+    default:
+      break;
+  }
+  echo getRatingTime($post_id);
+  exit(0);
+}
+function getRatingTime($id)
+{
+  global $wpdb;
+  $rating = array();
+  $lessone = $wpdb->get_var( "SELECT sum(taken_time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $onetotwo = $wpdb->get_var( "SELECT sum(taken_time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $moretwo = $wpdb->get_var( "SELECT sum(taken_time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+
+  $rating = [
+    'lessone' => $lessone[0],
+    'onetotwo' => $onetotwo[0],
+    'moretwo' => $moretwo[0]
+  ];
+  return json_encode($rating);
+}
+///////////////////////////////////// END OF TIME ////////////////////////////////////////
+/////////////////////////////////////AGE GROUP////////////////////////////////////////
+
+function userBiggnerAge($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 1) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getBiggnerAge($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(age_group = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Sad/////////////////
+///////// If the user is Happy/////////////////
+function userInterAge($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 2) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getInterAge($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(age_group = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Happy/////////////////
+///////// If the user is Excited/////////////////
+function userAdvanceAge($userid, $postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  if ($valu == 3) {
+    return true;
+  }else{
+    return false;
+  }
+}
+function getAdvanceAge($postid)
+{
+  global $wpdb;
+  $valu = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  return json_encode($valu, JSON_NUMERIC_CHECK);
+}
+///////// End of If the user is Excited/////////////////
+if (isset($_POST['ageaction'])) {
+  $ageaction = $_POST['ageaction'];
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+  $table_name = 'wp_feedback';
+  $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+  $ml = $wpdb->get_var( "SELECT age_group FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+
+  switch ($ageaction) {
+    case 'biggner':
+      if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 0,
+      'age_group' => 1 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 2 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'unbiggner':
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 0 WHERE user_id=$user_id && post_id = $post_id"));
+      break;
+    case 'inter':
+         if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 0,
+      'age_group' => 2 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 1 || $ml == 3){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+         break;
+    case 'uninter':
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        break;
+    case 'advance':
+          if (empty($row)){
+        $data_array = array(
+          'user_id' => $user_id,
+      'post_id' => $post_id,
+      'satsfaction' => 0,
+      'level' => 0,
+      'taken_time' => 3,
+      'age_group' => 3 );
+            $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
+        }else if($ml == 0 || $ml == 1 || $ml == 2){
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        }
+      break;
+    case 'unadvance':
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET age_group = 0 WHERE user_id=$user_id && post_id = $post_id"));
+    default:
+      break;
+  }
+  echo getRatingAge($post_id);
+  exit(0);
+}
+function getRatingAge($id)
+{
+  global $wpdb;
+  $rating = array();
+  $agebiggner = $wpdb->get_var( "SELECT sum(age_group = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $ageinter = $wpdb->get_var( "SELECT sum(age_group = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $ageadvance = $wpdb->get_var( "SELECT sum(age_group = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+
+  $rating = [
+    'agebiggner' => $agebiggner[0],
+    'ageinter' => $ageinter[0],
+    'ageadvance' => $ageadvance[0]
   ];
   return json_encode($rating);
 }
