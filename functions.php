@@ -974,7 +974,7 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 1,
       'level' => 0,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 2 || $ml == 3){
@@ -991,7 +991,7 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 2,
       'level' => 0,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 3){
@@ -1008,7 +1008,7 @@ if (isset($_POST['action'])) {
       'post_id' => $post_id,
       'satsfaction' => 3,
       'level' => 0,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 2){
@@ -1109,7 +1109,7 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 1,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 2 || $ml == 3){
@@ -1126,7 +1126,7 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 2,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 3){
@@ -1143,7 +1143,7 @@ if (isset($_POST['levelaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 3,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 2){
@@ -1181,7 +1181,7 @@ function getRatingLevel($id)
 function userLessOne($userid, $postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
   if ($valu == 1) {
     return true;
   }else{
@@ -1191,7 +1191,7 @@ function userLessOne($userid, $postid)
 function getLessOne($postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT sum(taken_time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT sum(time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
   return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Sad/////////////////
@@ -1199,7 +1199,7 @@ function getLessOne($postid)
 function userOneToTwo($userid, $postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
   if ($valu == 2) {
     return true;
   }else{
@@ -1209,7 +1209,7 @@ function userOneToTwo($userid, $postid)
 function getOneToTwo($postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT sum(taken_time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT sum(time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
   return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Happy/////////////////
@@ -1217,7 +1217,7 @@ function getOneToTwo($postid)
 function userMoreTwo($userid, $postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$userid."' && post_id = '".$postid."'" );
   if ($valu == 3) {
     return true;
   }else{
@@ -1227,7 +1227,7 @@ function userMoreTwo($userid, $postid)
 function getMoreTwo($postid)
 {
   global $wpdb;
-  $valu = $wpdb->get_var( "SELECT sum(taken_time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
+  $valu = $wpdb->get_var( "SELECT sum(time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$postid."'" );
   return json_encode($valu, JSON_NUMERIC_CHECK);
 }
 ///////// End of If the user is Excited/////////////////
@@ -1237,7 +1237,7 @@ if (isset($_POST['timeaction'])) {
   $user_id = $_POST['user_id'];
   $table_name = 'wp_feedback';
   $row = $wpdb->get_var( "SELECT * FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
-  $ml = $wpdb->get_var( "SELECT taken_time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
+  $ml = $wpdb->get_var( "SELECT time FROM ".$wpdb->prefix."feedback WHERE user_id = '".$user_id."' && post_id = '".$post_id."'" );
 
   switch ($timeaction) {
     case 'biggner':
@@ -1247,15 +1247,15 @@ if (isset($_POST['timeaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 1,
+      'time' => 1,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 2 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 1 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 1 WHERE user_id=$user_id && post_id = $post_id"));
         }
          break;
     case 'unbiggner':
-           $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+           $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 0 WHERE user_id=$user_id && post_id = $post_id"));
       break;
     case 'inter':
          if (empty($row)){
@@ -1264,15 +1264,15 @@ if (isset($_POST['timeaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 2,
+      'time' => 2,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 3){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 2 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 2 WHERE user_id=$user_id && post_id = $post_id"));
         }
          break;
     case 'uninter':
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 0 WHERE user_id=$user_id && post_id = $post_id"));
         break;
     case 'advance':
           if (empty($row)){
@@ -1281,15 +1281,15 @@ if (isset($_POST['timeaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 3,
+      'time' => 3,
       'age_group' => 0 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 2){
-        $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 3 WHERE user_id=$user_id && post_id = $post_id"));
+        $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 3 WHERE user_id=$user_id && post_id = $post_id"));
         }
       break;
     case 'unadvance':
-          $wpdb->query($wpdb->prepare("UPDATE $table_name SET taken_time = 0 WHERE user_id=$user_id && post_id = $post_id"));
+          $wpdb->query($wpdb->prepare("UPDATE $table_name SET time = 0 WHERE user_id=$user_id && post_id = $post_id"));
     default:
       break;
   }
@@ -1300,9 +1300,9 @@ function getRatingTime($id)
 {
   global $wpdb;
   $rating = array();
-  $lessone = $wpdb->get_var( "SELECT sum(taken_time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
-  $onetotwo = $wpdb->get_var( "SELECT sum(taken_time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
-  $moretwo = $wpdb->get_var( "SELECT sum(taken_time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $lessone = $wpdb->get_var( "SELECT sum(time = 1) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $onetotwo = $wpdb->get_var( "SELECT sum(time = 2) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
+  $moretwo = $wpdb->get_var( "SELECT sum(time = 3) FROM ".$wpdb->prefix."feedback WHERE post_id = '".$id."'" );
 
   $rating = [
     'lessone' => $lessone[0],
@@ -1383,7 +1383,7 @@ if (isset($_POST['ageaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 1 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 2 || $ml == 3){
@@ -1400,7 +1400,7 @@ if (isset($_POST['ageaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 0,
+      'time' => 0,
       'age_group' => 2 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 3){
@@ -1417,7 +1417,7 @@ if (isset($_POST['ageaction'])) {
       'post_id' => $post_id,
       'satsfaction' => 0,
       'level' => 0,
-      'taken_time' => 3,
+      'time' => 3,
       'age_group' => 3 );
             $sql=$wpdb->insert($table_name, $data_array, $format=NULL);
         }else if($ml == 0 || $ml == 1 || $ml == 2){
