@@ -321,9 +321,9 @@ echo $posts['user_avatar'];
 
 					});
 			});
-		</script>
-						<div class="card-header">
-							LEVEL
+		</script> </div>
+						<div class="card-header" >
+							<?php echo nl2br("\n"); ?>LEVEL
 						</div>
 						<div class="btn-group">
 						<i <?php if (userBiggner($userid, $postid)): ?>
